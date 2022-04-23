@@ -1,0 +1,2691 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4. Підготовка та очистка даних у R &#8212; Data Science and Machine Learning with R</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Scientific Python QuickStart" href="../index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/book-logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Data Science and Machine Learning with R</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../index.html">
+   Scientific Python QuickStart
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Аналіз даних (Укр)
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   4. Підготовка та очистка даних у R
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/docs/data-analysis-ua/data-cleaning.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/kleban/r-book/master?urlpath=tree/_book/docs/data-analysis-ua/data-cleaning.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   4. Підготовка та очистка даних у R
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-class-anchor-id-id1-a">
+     1. Поняття та виміри оцінки якості даних
+     <a class="anchor" id="id1">
+     </a>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#accuracy">
+       Правильність / (Accuracy)
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#completeness">
+       Повнота / (Completeness)
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#consistency">
+       Узгодженість / Consistency
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#conformity">
+       Відповідність / Conformity
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#integrity">
+       Цілісність / Integrity
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#timeliness">
+       Своєчасність / Timeliness
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     2. Робота з неіменованими та “поганоіменованими” даними
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#a-class-anchor-id-id21-a">
+       2.1. Іменування даних
+       <a class="anchor" id="id21">
+       </a>
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#data-frame-a-class-anchor-id-id22">
+       2.2. Заміна назв стовпців data.frame
+       <a class="anchor" id="id22">
+       </a>
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       2.3. Підготовка та очистка текстової інформації
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#missing-value-imputation">
+     3. Заміна пропусків у даних (Missing Value Imputation)
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       3.1. Перевірка наявності пропусків у даних
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#data-frame">
+       3.2. Видалення пустих рядків та сповпців у
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         data.frame
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       3.3. Заміна пропусків у
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         data.frame
+        </span>
+       </code>
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id5">
+         3.3.1. Заміна пропусків на нуль (0)
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id6">
+         3.3.2. Базова числова заміна пропусків
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#hot-deck-imputation">
+         3.3.3. Hot deck imputation (як перекласти???)
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id7">
+         3.3.4. Сегментна заміна пропусків
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id8">
+         3.3.5. Інтелектуальні методи заміни
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     4. Аналіз та обробка статистичних викидів у даних
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-class-anchor-id-id5-a">
+     5. Додаткові прийоми очистки даних
+     <a class="anchor" id="id5">
+     </a>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id10">
+       5.1. Видалення дублікатів
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   Завдання для практики
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id12">
+   Набори даних
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     Використані та додаткові джерела
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>4. Підготовка та очистка даних у R</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   4. Підготовка та очистка даних у R
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-class-anchor-id-id1-a">
+     1. Поняття та виміри оцінки якості даних
+     <a class="anchor" id="id1">
+     </a>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#accuracy">
+       Правильність / (Accuracy)
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#completeness">
+       Повнота / (Completeness)
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#consistency">
+       Узгодженість / Consistency
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#conformity">
+       Відповідність / Conformity
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#integrity">
+       Цілісність / Integrity
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#timeliness">
+       Своєчасність / Timeliness
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     2. Робота з неіменованими та “поганоіменованими” даними
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#a-class-anchor-id-id21-a">
+       2.1. Іменування даних
+       <a class="anchor" id="id21">
+       </a>
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#data-frame-a-class-anchor-id-id22">
+       2.2. Заміна назв стовпців data.frame
+       <a class="anchor" id="id22">
+       </a>
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       2.3. Підготовка та очистка текстової інформації
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#missing-value-imputation">
+     3. Заміна пропусків у даних (Missing Value Imputation)
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id3">
+       3.1. Перевірка наявності пропусків у даних
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#data-frame">
+       3.2. Видалення пустих рядків та сповпців у
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         data.frame
+        </span>
+       </code>
+      </a>
+     </li>
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id4">
+       3.3. Заміна пропусків у
+       <code class="docutils literal notranslate">
+        <span class="pre">
+         data.frame
+        </span>
+       </code>
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id5">
+         3.3.1. Заміна пропусків на нуль (0)
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id6">
+         3.3.2. Базова числова заміна пропусків
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#hot-deck-imputation">
+         3.3.3. Hot deck imputation (як перекласти???)
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id7">
+         3.3.4. Сегментна заміна пропусків
+        </a>
+       </li>
+       <li class="toc-h4 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id8">
+         3.3.5. Інтелектуальні методи заміни
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id9">
+     4. Аналіз та обробка статистичних викидів у даних
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-class-anchor-id-id5-a">
+     5. Додаткові прийоми очистки даних
+     <a class="anchor" id="id5">
+     </a>
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h3 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id10">
+       5.1. Видалення дублікатів
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id11">
+   Завдання для практики
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id12">
+   Набори даних
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id13">
+     Використані та додаткові джерела
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="r">
+<h1>4. Підготовка та очистка даних у R<a class="headerlink" href="#r" title="Permalink to this headline">¶</a></h1>
+<p>Матеріали розділу описують інформацію про виміри оцінки якості даних, підходи до визначення та обробки пропущених значень, а також розглядаються способи боротьби зі статистичними викидами.</p>
+<blockquote>
+<div><p><em>Примітка. Додати теоретичну інформацію про нормальний розподіл, квантилі, Q1, Q3, IQR…</em></p>
+</div></blockquote>
+<hr class="docutils" />
+<p><em>До початку роботи варто інстралювати наступні пакети:</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># install.packages(&quot;dplyr&quot;)</span>
+<span class="c1"># install.packages(&quot;janitor&quot;)</span>
+<span class="c1"># install.packages(&quot;stringr&quot;)</span>
+<span class="c1"># install.packages(&quot;stringdist&quot;)</span>
+<span class="c1"># install.packages(&quot;mice&quot;)</span>
+<span class="c1"># install.packages(&quot;VIM&quot;)</span>
+<span class="c1"># install.packages(&quot;Amelia&quot;)</span>
+<span class="c1"># install.packages(&quot;tidyr&quot;)</span>
+<span class="c1"># install.packages(&quot;Hmisc&quot;)</span>
+<span class="nf">options</span><span class="p">(</span><span class="n">warn</span><span class="o">=</span><span class="m">-1</span><span class="p">)</span> <span class="c1"># Налаштування для блокування вивеження warning-повідомлень</span>
+<span class="nf">Sys.setlocale</span><span class="p">(</span><span class="s">&quot;LC_ALL&quot;</span><span class="p">,</span> <span class="s">&quot;Ukrainian&quot;</span><span class="p">)</span> <span class="c1"># Налаштування для української лікалізації jupyter-ноутбуків</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Your code contains a unicode char which cannot be displayed in your
+current locale and R will silently convert it to an escaped form when the
+R kernel executes this code. This can lead to subtle errors if you use
+such chars to do comparisons. For more information, please see
+https://github.com/IRkernel/repr/wiki/Problems-with-unicode-on-windows
+</pre></div>
+</div>
+<div class="output text_html">'LC_COLLATE=Ukrainian_Ukraine.1251;LC_CTYPE=Ukrainian_Ukraine.1251;LC_MONETARY=Ukrainian_Ukraine.1251;LC_NUMERIC=C;LC_TIME=Ukrainian_Ukraine.1251'</div></div>
+</div>
+<hr class="docutils" />
+<div class="section" id="a-class-anchor-id-id1-a">
+<h2>1. Поняття та виміри оцінки якості даних <a class="anchor" id="id1"></a><a class="headerlink" href="#a-class-anchor-id-id1-a" title="Permalink to this headline">¶</a></h2>
+<p>Якість даних залежить від очищення та коригування даних, які відсутні, некоректні, недійсні або нечитабельні. Для забезпечення достовірності даних важливо зрозуміти ключові аспекти якості даних, щоб оцінити, наскільки дані погані/хороші.</p>
+<p><strong>Що таке валідація даних?</strong></p>
+<p>Валідація даних відноситься до процесу забезпечення точності та якості даних. Він реалізується шляхом вбудовування кількох перевірок у систему або звітування для забезпечення логічної узгодженості введених і збережених даних.</p>
+<p>На перший погляд, очевидно, що перетворення даних до якісних полягає в очищенні поганих даних – даних, які відсутні, неправильні або якимось чином недійсні. Але щоб переконатися, що дані заслуговують довіри, важливо розуміти ключові виміри якості даних, щоб оцінити, наскільки дані є «поганими».</p>
+<p>Окремі компанії мають внутрішні документи, що визначають виміри оцінки якості даних та порядок його проведення - <code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Validation</span> <span class="pre">Framework</span></code> або <code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Quality</span> <span class="pre">Framework</span></code>.</p>
+<p>Коли говорять про якість даних, то мається на увазі їх оцінка у кількох вимірах. Розглянемо коротко ці виміри:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Правильність / <code class="docutils literal notranslate"><span class="pre">Accuracy</span></code></p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Повнота / <code class="docutils literal notranslate"><span class="pre">Completeness</span></code></p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Узгодженість / <code class="docutils literal notranslate"><span class="pre">Consistency</span></code></p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Відповідність / <code class="docutils literal notranslate"><span class="pre">Conformity</span></code></p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Цілісність / <code class="docutils literal notranslate"><span class="pre">Integrity</span></code></p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Своєчасність / <code class="docutils literal notranslate"><span class="pre">Timeliness</span></code></p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Унікальність / <code class="docutils literal notranslate"><span class="pre">Uniqueness</span></code></p></li>
+</ul>
+<hr class="docutils" />
+<div class="section" id="accuracy">
+<h3>Правильність / (Accuracy)<a class="headerlink" href="#accuracy" title="Permalink to this headline">¶</a></h3>
+<p><strong>Правильність</strong> — це ступінь, до якого дані правильно відображають реальний об’єкт АБО описувану подію.</p>
+<p>Приклади:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Реальною вартістю є ціна продажу одиниці товару.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Адреса співробітника в <code class="docutils literal notranslate"><span class="pre">базі</span> <span class="pre">даних</span> <span class="pre">співробітників</span></code> є справжньою адресою.</p></li>
+</ul>
+<p>Запитання, які ви можете задати собі:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Чи об’єкти даних точно представляють значення «реального світу», які вони повинні моделювати? <em>Наприклад, чи правильно вказувати вік у сотнях тисяч років?</em></p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Чи присутнє неправильне написання назв товарів чи осіб, адрес і навіть несвоєчасних чи неактуальних даних?</p></li>
+</ul>
+<p>Ці проблеми можуть вплинути на результатати аналітичних звітів, наприклад, неправильні середні значення певних показників.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="completeness">
+<h3>Повнота / (Completeness)<a class="headerlink" href="#completeness" title="Permalink to this headline">¶</a></h3>
+<p>Повнота визначається як очікувана всебічність. Дані можуть бути повними, навіть якщо додаткові дані відсутні. Поки дані відповідають очікуванням, вони вважаються повними.</p>
+<p>Наприклад, ім’я та прізвище замовника є обов’язковими, але прізвище необов’язково; тому запис можна вважати повним, навіть якщо прізвища не існує.</p>
+<p>Питання, які ви можете задати собі:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Чи доступна вся необхідна інформація?</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Чи мають якісь дані відсутні елементи?</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Або вони перебувають у непридатному для роботи вигляді?</p></li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="consistency">
+<h3>Узгодженість / Consistency<a class="headerlink" href="#consistency" title="Permalink to this headline">¶</a></h3>
+<p><strong>Узгодженість</strong> означає, що дані в усіх системах/таблицях відображають однакову інформацію та синхронізовані між собою.</p>
+<p>Приклади:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Статус бізнес-підрозділу “закритий”, але є продажі для цього підрозділу.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Статус працівника “звільнено”, але статус випалати заробіної плати містить суму відмінну від 0 за той самий період.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Зафіксовано, що клієнт має у банку депозити, але у даних про депозити записи по клієнту відсутні.</p></li>
+</ul>
+<p>Запитання, які ви можете поставити собі:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Чи однакові значення даних у наборах даних?</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Чи існують якісь різні випадки, коли однакові екземпляри даних надають суперечливу інформацію?</p></li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="conformity">
+<h3>Відповідність / Conformity<a class="headerlink" href="#conformity" title="Permalink to this headline">¶</a></h3>
+<p><strong>Відповідність</strong> означає, що дані відповідають набору стандартних визначень даних, як-от тип даних, розмір і формат. Наприклад, дата народження клієнта у форматі <code class="docutils literal notranslate"><span class="pre">dd/mm/yyyy</span></code> або відстань у км числом <code class="docutils literal notranslate"><span class="pre">100</span></code>, а не записом <code class="docutils literal notranslate"><span class="pre">100км</span></code>.</p>
+<p>Запитання, які ви можете задати собі:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Чи відповідають значення даних зазначеним форматам?</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Якщо так, то чи всі значення даних відповідають цим форматам?</p></li>
+</ul>
+<p>Важливо підтримувати відповідність конкретним форматам.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="integrity">
+<h3>Цілісність / Integrity<a class="headerlink" href="#integrity" title="Permalink to this headline">¶</a></h3>
+<p><strong>Цілісність</strong> означає достовірність даних у взаємозв’язках і гарантує, що всі дані в базі даних можна відстежити та з’єднати з іншими даними.</p>
+<p>Наприклад, у базі даних клієнтів має бути дійсний клієнт, адреси та відношення/зв’язки між ними. Якщо є дані про зв’язок адреси без клієнта, то ці дані недійсні й вважаються загубленим записом.</p>
+<p>Запитайте себе:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Чи є якісь дані без важливих зв’язків?</p></li>
+</ul>
+<p>Неможливість пов’язати записи разом може призвести до дублювання у ваших системах.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="timeliness">
+<h3>Своєчасність / Timeliness<a class="headerlink" href="#timeliness" title="Permalink to this headline">¶</a></h3>
+<p><strong>Своєчасність</strong> показує, чи є інформація доступною, коли вона очікується та потрібна. Своєчасність даних дуже важлива.</p>
+<p>Це відображається в:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Компанії, які зобов’язані публікувати свої квартальні результати протягом певного періоду часу</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Обслуговування клієнтів надає клієнтам актуальну інформацію</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Кредитна система перевіряє активність рахунку кредитної картки в режимі реального часу</p></li>
+</ul>
+<p>Своєчасність залежить від очікувань користувача. Доступність даних в Інтернеті може знадобитися для системи розподілу номерів у сфері готельного бізнесу.</p>
+<p>Як бачите, якість даних є важливим питанням, яке слід враховувати, починаючи від етапу визначення цілей проекту, аж до впровадження, обслуговування та використання готово рішення у виробничі процесі підприємства.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id1">
+<h2>2. Робота з неіменованими та “поганоіменованими” даними<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a-class-anchor-id-id21-a">
+<h3>2.1. Іменування даних <a class="anchor" id="id21"></a><a class="headerlink" href="#a-class-anchor-id-id21-a" title="Permalink to this headline">¶</a></h3>
+<p>Першим прикладом проблем у даних можна розгянути читання неіменованих даних, тобто стопці таблиці не мають заголовків у файлі.</p>
+<p>Створимо такий файл у блокноті і зчитаємо його:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;../../data/untitled.csv&quot;</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 5 × 4</caption>
+<thead>
+	<tr><th scope=col>X23</th><th scope=col>X185</th><th scope=col>X85.7</th><th scope=col>Male</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>41</td><td>175 </td><td>68.3</td><td>M               </td></tr>
+	<tr><td>11</td><td>142*</td><td>55.4</td><td>Female          </td></tr>
+	<tr><td>12</td><td>NA  </td><td>48.2</td><td>Man             </td></tr>
+	<tr><td>54</td><td>171 </td><td>  NA</td><td>Looks like a man</td></tr>
+	<tr><td>32</td><td>168 </td><td>78.0</td><td>F               </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Зверніть увагу, що у якості стовпців взято перший рядок даних у додано <code class="docutils literal notranslate"><span class="pre">X</span></code> на початку. Зчитаємо дані із параметром, що вказує на відсутність заголовків:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;../../data/untitled.csv&quot;</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 6 × 4</caption>
+<thead>
+	<tr><th scope=col>V1</th><th scope=col>V2</th><th scope=col>V3</th><th scope=col>V4</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185 </td><td>85.7</td><td>Male            </td></tr>
+	<tr><td>41</td><td>175 </td><td>68.3</td><td>M               </td></tr>
+	<tr><td>11</td><td>142*</td><td>55.4</td><td>Female          </td></tr>
+	<tr><td>12</td><td>NA  </td><td>48.2</td><td>Man             </td></tr>
+	<tr><td>54</td><td>171 </td><td>  NA</td><td>Looks like a man</td></tr>
+	<tr><td>32</td><td>168 </td><td>78.0</td><td>F               </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Проблема іменування не вирішена, дані ми уже не втратили. Передамо одночасно з читанням інформацію про назви стовпців:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;../../data/untitled.csv&quot;</span><span class="p">,</span> 
+            <span class="n">header</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span>
+            <span class="n">col.names</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;Age&quot;</span><span class="p">,</span><span class="s">&quot;Height&quot;</span><span class="p">,</span> <span class="s">&quot;Weight&quot;</span><span class="p">,</span> <span class="s">&quot;Gender&quot;</span><span class="p">))</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 6 × 4</caption>
+<thead>
+	<tr><th scope=col>Age</th><th scope=col>Height</th><th scope=col>Weight</th><th scope=col>Gender</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185 </td><td>85.7</td><td>Male            </td></tr>
+	<tr><td>41</td><td>175 </td><td>68.3</td><td>M               </td></tr>
+	<tr><td>11</td><td>142*</td><td>55.4</td><td>Female          </td></tr>
+	<tr><td>12</td><td>NA  </td><td>48.2</td><td>Man             </td></tr>
+	<tr><td>54</td><td>171 </td><td>  NA</td><td>Looks like a man</td></tr>
+	<tr><td>32</td><td>168 </td><td>78.0</td><td>F               </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Ще одним варіантом задання назв стовпців є використання функції <code class="docutils literal notranslate"><span class="pre">colnames()</span></code> як для усіх різом, так і для окремого:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">colnames</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;age&quot;</span><span class="p">,</span> <span class="s">&quot;height&quot;</span><span class="p">,</span> <span class="s">&quot;width&quot;</span><span class="p">,</span> <span class="s">&quot;gender&quot;</span><span class="p">)</span>
+<span class="n">data</span>
+<span class="nf">colnames</span><span class="p">(</span><span class="n">data</span><span class="p">)[</span><span class="m">2</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&quot;HEIGHT&quot;</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 6 × 4</caption>
+<thead>
+	<tr><th scope=col>age</th><th scope=col>height</th><th scope=col>width</th><th scope=col>gender</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185 </td><td>85.7</td><td>Male            </td></tr>
+	<tr><td>41</td><td>175 </td><td>68.3</td><td>M               </td></tr>
+	<tr><td>11</td><td>142*</td><td>55.4</td><td>Female          </td></tr>
+	<tr><td>12</td><td>NA  </td><td>48.2</td><td>Man             </td></tr>
+	<tr><td>54</td><td>171 </td><td>  NA</td><td>Looks like a man</td></tr>
+	<tr><td>32</td><td>168 </td><td>78.0</td><td>F               </td></tr>
+</tbody>
+</table>
+</div><div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 6 × 4</caption>
+<thead>
+	<tr><th scope=col>age</th><th scope=col>HEIGHT</th><th scope=col>width</th><th scope=col>gender</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185 </td><td>85.7</td><td>Male            </td></tr>
+	<tr><td>41</td><td>175 </td><td>68.3</td><td>M               </td></tr>
+	<tr><td>11</td><td>142*</td><td>55.4</td><td>Female          </td></tr>
+	<tr><td>12</td><td>NA  </td><td>48.2</td><td>Man             </td></tr>
+	<tr><td>54</td><td>171 </td><td>  NA</td><td>Looks like a man</td></tr>
+	<tr><td>32</td><td>168 </td><td>78.0</td><td>F               </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Також змінювати назви стовпців можна за допомогою функції <code class="docutils literal notranslate"><span class="pre">rename()</span></code> з пакету <code class="docutils literal notranslate"><span class="pre">dplyr</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">dplyr</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">&lt;-</span> <span class="n">data</span> <span class="o">|&gt;</span> <span class="nf">rename</span><span class="p">(</span><span class="n">AGE</span> <span class="o">=</span> <span class="n">age</span><span class="p">)</span> <span class="c1"># %&gt;%</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Attaching package: &#39;dplyr&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The following objects are masked from &#39;package:stats&#39;:
+
+    filter, lag
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The following objects are masked from &#39;package:base&#39;:
+
+    intersect, setdiff, setequal, union
+</pre></div>
+</div>
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 6 × 4</caption>
+<thead>
+	<tr><th scope=col>AGE</th><th scope=col>HEIGHT</th><th scope=col>width</th><th scope=col>gender</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185 </td><td>85.7</td><td>Male            </td></tr>
+	<tr><td>41</td><td>175 </td><td>68.3</td><td>M               </td></tr>
+	<tr><td>11</td><td>142*</td><td>55.4</td><td>Female          </td></tr>
+	<tr><td>12</td><td>NA  </td><td>48.2</td><td>Man             </td></tr>
+	<tr><td>54</td><td>171 </td><td>  NA</td><td>Looks like a man</td></tr>
+	<tr><td>32</td><td>168 </td><td>78.0</td><td>F               </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="data-frame-a-class-anchor-id-id22">
+<h3>2.2. Заміна назв стовпців data.frame <a class="anchor" id="id22"><a class="headerlink" href="#data-frame-a-class-anchor-id-id22" title="Permalink to this headline">¶</a></h3>
+<p>Зчитаємо файл, що містить інформацію про осіб, але уже має іменовані стовтці:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;../../data/badtitled.csv&quot;</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 5</caption>
+<thead>
+	<tr><th scope=col>Person.Age</th><th scope=col>Person__Height</th><th scope=col>person.Weight</th><th scope=col>Person.Gender</th><th scope=col>empty</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;lgl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185 </td><td>  NA</td><td>Male  </td><td>NA</td></tr>
+	<tr><td>41</td><td>175 </td><td>68.3</td><td>   M  </td><td>NA</td></tr>
+	<tr><td>11</td><td>142*</td><td>55.4</td><td>Female</td><td>NA</td></tr>
+	<tr><td>12</td><td>NA  </td><td>48.2</td><td>Man   </td><td>NA</td></tr>
+	<tr><td>54</td><td>191 </td><td>  NA</td><td>female</td><td>NA</td></tr>
+	<tr><td>32</td><td>168 </td><td>78.0</td><td>F     </td><td>NA</td></tr>
+	<tr><td>22</td><td>NA  </td><td>54.0</td><td>male. </td><td>NA</td></tr>
+	<tr><td>21</td><td>165 </td><td>  NA</td><td>m     </td><td>NA</td></tr>
+	<tr><td>14</td><td>NA  </td><td>90.2</td><td>Man   </td><td>NA</td></tr>
+	<tr><td>51</td><td>250 </td><td>  NA</td><td>female</td><td>NA</td></tr>
+	<tr><td>41</td><td>20  </td><td>81.0</td><td>F     </td><td>NA</td></tr>
+	<tr><td>66</td><td>NA  </td><td>59.0</td><td>male. </td><td>NA</td></tr>
+	<tr><td>71</td><td>171 </td><td>  NA</td><td>m     </td><td>NA</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Швидко змінити назви стовпців та привести їх до однакового стилю можна за домогою бібліотеки <code class="docutils literal notranslate"><span class="pre">janitor</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">janitor</span><span class="p">)</span>
+<span class="n">clean</span> <span class="o">&lt;-</span> <span class="nf">clean_names</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nf">colnames</span><span class="p">(</span><span class="n">clean</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Attaching package: &#39;janitor&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The following objects are masked from &#39;package:stats&#39;:
+
+    chisq.test, fisher.test
+</pre></div>
+</div>
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'person_age'</li><li>'person_height'</li><li>'person_weight'</li><li>'person_gender'</li><li>'empty'</li></ol>
+</div></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id2">
+<h3>2.3. Підготовка та очистка текстової інформації<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Зчитаємо інформацію про стать з попереднього прикладу:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;../../data/badtitled.csv&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">clean_names</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">as.data.frame</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">person_gender</span><span class="p">)</span>
+<span class="nf">colnames</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;gender&quot;</span><span class="p">)</span>
+<span class="nf">unlist</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.dl-inline {width: auto; margin:0; padding: 0}
+.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
+.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
+.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
+</style><dl class=dl-inline><dt>gender1</dt><dd>'Male'</dd><dt>gender2</dt><dd><span style=white-space:pre-wrap>'   M'</span></dd><dt>gender3</dt><dd>'Female'</dd><dt>gender4</dt><dd>'Man'</dd><dt>gender5</dt><dd>'female'</dd><dt>gender6</dt><dd><span style=white-space:pre-wrap>'F    '</span></dd><dt>gender7</dt><dd>'male.'</dd><dt>gender8</dt><dd>'m'</dd><dt>gender9</dt><dd>'Man'</dd><dt>gender10</dt><dd>'female'</dd><dt>gender11</dt><dd><span style=white-space:pre-wrap>'F    '</span></dd><dt>gender12</dt><dd>'male.'</dd><dt>gender13</dt><dd>'m'</dd></dl>
+</div></div>
+</div>
+<p>Схоже, що ці дані насправді мають всього 2 записи, проте у базу даних їх вносили різні люди або вони були зібрані з різних джерел інформації. Це досить поширена проблема у роботі з даними. Особливо коли відбуваєть заміна людей на рочих місцях або перехід на інше програмне забезпечення.</p>
+<p>Якщо це буде розглядатися як факторна змінна без будь-якої попередньої обробки, очевидно, що 8, а не 2 класи будуть збережені. Тому завдання полягає в тому, щоб автоматично розпізнавати наведені вище дані про те, чи відноситься кожен елемент до чоловічої чи жіночої статі. У статистичних контекстах класифікацію таких
+“безладні” текстові рядки в ряд фіксованих категорій часто називають кодуванням.</p>
+<p>Опишемо два взаємодоповнюючих підходи до кодування рядків: <code class="docutils literal notranslate"><span class="pre">нормалізація</span></code> (<code class="docutils literal notranslate"><span class="pre">string</span> <span class="pre">normalization</span></code>) рядків і аналіз схожості тексту (<code class="docutils literal notranslate"><span class="pre">approximate</span> <span class="pre">text</span> <span class="pre">matching</span></code>).</p>
+<p>Розглянемо наступні підходи до очистки текстових даних:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>– [x] Видалення пробілів на початку або в кінці
+– [x] Обрізання/збільшення рядків до певної ширини
+– [x] Перетворення у верхній/нижній регістр.
+– [x] Пошук рядків, що містять прості шаблони (підрядки).
+– [x] Апроксимація рядків на основі &quot;відстаней&quot;.
+</pre></div>
+</div>
+<p>Робота з текстом у <code class="docutils literal notranslate"><span class="pre">R</span></code> здійснюється за допомогою пакету <code class="docutils literal notranslate"><span class="pre">stringr</span></code>.</p>
+<p><strong>Видалення пробілів на початку або в кінці</strong> здійснюється за допомогою функції <code class="docutils literal notranslate"><span class="pre">str_trim()</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">stringr</span><span class="p">)</span>
+<span class="nf">str_trim</span><span class="p">(</span><span class="s">&quot; ostroh academy  &quot;</span><span class="p">)</span>
+<span class="nf">str_trim</span><span class="p">(</span><span class="s">&quot; ostroh academy &quot;</span><span class="p">,</span> <span class="n">side</span> <span class="o">=</span> <span class="s">&quot;left&quot;</span><span class="p">)</span>
+<span class="nf">str_trim</span><span class="p">(</span><span class="s">&quot; ostroh academy &quot;</span><span class="p">,</span> <span class="n">side</span> <span class="o">=</span> <span class="s">&quot;right&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">'ostroh academy'</div><div class="output text_html">'ostroh academy '</div><div class="output text_html">' ostroh academy'</div></div>
+</div>
+<p><strong>Обрізання/збільшення рядків до певної ширини</strong> здійснюється за допомогою функції <code class="docutils literal notranslate"><span class="pre">str_pad()</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">str_pad</span><span class="p">(</span><span class="m">57</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="m">6</span><span class="p">,</span> <span class="n">side</span> <span class="o">=</span> <span class="s">&quot;left&quot;</span><span class="p">,</span> <span class="n">pad</span> <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">'000057'</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">str_pad</span><span class="p">(</span><span class="s">&quot;ostroh&quot;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="m">10</span><span class="p">,</span> <span class="n">side</span> <span class="o">=</span> <span class="s">&quot;right&quot;</span><span class="p">,</span> <span class="n">pad</span> <span class="o">=</span> <span class="s">&quot;_&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">'ostroh____'</div></div>
+</div>
+<p><strong>Перетворення у верхній/нижній регістр</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">&lt;-</span> <span class="s">&quot;Ostroh Academy!&quot;</span>
+<span class="nf">toupper</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="nf">tolower</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">'OSTROH ACADEMY!'</div><div class="output text_html">'ostroh academy!'</div></div>
+</div>
+<p><strong>Пошук рядків, що містять прості шаблони (підрядки)</strong></p>
+<p>Скористаємося функцієя <code class="docutils literal notranslate"><span class="pre">grep()</span></code> та <code class="docutils literal notranslate"><span class="pre">grepl()</span></code> для пошуку підрядків у інформації про стать:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">grepl</span><span class="p">(</span><span class="s">&quot;m&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">$</span><span class="n">gender</span><span class="p">)</span> <span class="c1"># Повертає TRUE/FALSE, якщо знахоить входження рядка</span>
+<span class="nf">grep</span><span class="p">(</span><span class="s">&quot;m&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">$</span><span class="n">gender</span><span class="p">)</span> <span class="c1"># Повертає номери рядків, по яких є входження</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>FALSE</li><li>FALSE</li><li>TRUE</li><li>FALSE</li><li>TRUE</li><li>FALSE</li><li>TRUE</li><li>TRUE</li><li>FALSE</li><li>TRUE</li><li>FALSE</li><li>TRUE</li><li>TRUE</li></ol>
+</div><div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>3</li><li>5</li><li>7</li><li>8</li><li>10</li><li>12</li><li>13</li></ol>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">grepl</span><span class="p">(</span><span class="s">&quot;m&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">$</span><span class="n">gender</span><span class="p">,</span> <span class="n">ignore.case</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="c1"># не враховує регістр букв</span>
+<span class="nf">grepl</span><span class="p">(</span><span class="s">&quot;m&quot;</span><span class="p">,</span> <span class="nf">tolower</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">gender</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>FALSE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>FALSE</li><li>TRUE</li><li>TRUE</li></ol>
+</div><div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>FALSE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>FALSE</li><li>TRUE</li><li>TRUE</li></ol>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">$</span><span class="n">gender</span>
+<span class="nf">grepl</span><span class="p">(</span><span class="s">&quot;^m&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">$</span><span class="n">gender</span><span class="p">,</span> <span class="n">ignore.case</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="c1"># Показує усі збіги, що починаються з вказаної літери</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'Male'</li><li><span style=white-space:pre-wrap>'   M'</span></li><li>'Female'</li><li>'Man'</li><li>'female'</li><li><span style=white-space:pre-wrap>'F    '</span></li><li>'male.'</li><li>'m'</li><li>'Man'</li><li>'female'</li><li><span style=white-space:pre-wrap>'F    '</span></li><li>'male.'</li><li>'m'</li></ol>
+</div><div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>TRUE</li><li>FALSE</li><li>FALSE</li><li>TRUE</li><li>FALSE</li><li>FALSE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>FALSE</li><li>FALSE</li><li>TRUE</li><li>TRUE</li></ol>
+</div></div>
+</div>
+<p><strong>Пошук “відстані” між ряжками</strong> - це аналіз рядків на схожіть з визначенням рівня співпадінь.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">adist</span><span class="p">(</span><span class="s">&quot;ao&quot;</span><span class="p">,</span> <span class="s">&quot;ao&quot;</span><span class="p">)</span>
+<span class="nf">adist</span><span class="p">(</span><span class="s">&quot;ao&quot;</span><span class="p">,</span> <span class="s">&quot;oa&quot;</span><span class="p">)</span>
+<span class="nf">adist</span><span class="p">(</span><span class="s">&quot;ao&quot;</span><span class="p">,</span> <span class="s">&quot;45fb&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A matrix: 1 × 1 of type dbl</caption>
+<tbody>
+	<tr><td>0</td></tr>
+</tbody>
+</table>
+</div><div class="output text_html"><table class="dataframe">
+<caption>A matrix: 1 × 1 of type dbl</caption>
+<tbody>
+	<tr><td>2</td></tr>
+</tbody>
+</table>
+</div><div class="output text_html"><table class="dataframe">
+<caption>A matrix: 1 × 1 of type dbl</caption>
+<tbody>
+	<tr><td>4</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Давайте проаналізуємо інформацію про стать з точки зору схожості текстів:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;male&quot;</span><span class="p">,</span> <span class="s">&quot;female&quot;</span><span class="p">)</span>
+<span class="n">adj_m</span> <span class="o">&lt;-</span> <span class="nf">adist</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">gender</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+<span class="c1">#adj_m &lt;- adist(tolower(data$gender), m)</span>
+<span class="c1">#adj_m &lt;- adist(str_trim(tolower(data$gender), side=&quot;both&quot;), m)</span>
+<span class="nf">colnames</span><span class="p">(</span><span class="n">adj_m</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">m</span> 
+<span class="nf">rownames</span><span class="p">(</span><span class="n">adj_m</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">data</span><span class="o">$</span><span class="n">gender</span>
+<span class="n">adj_m</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A matrix: 13 × 2 of type dbl</caption>
+<thead>
+	<tr><th></th><th scope=col>male</th><th scope=col>female</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>Male</th><td>1</td><td>3</td></tr>
+	<tr><th scope=row>   M</th><td>4</td><td>6</td></tr>
+	<tr><th scope=row>Female</th><td>2</td><td>1</td></tr>
+	<tr><th scope=row>Man</th><td>3</td><td>5</td></tr>
+	<tr><th scope=row>female</th><td>2</td><td>0</td></tr>
+	<tr><th scope=row>F    </th><td>5</td><td>6</td></tr>
+	<tr><th scope=row>male.</th><td>1</td><td>3</td></tr>
+	<tr><th scope=row>m</th><td>3</td><td>5</td></tr>
+	<tr><th scope=row>Man</th><td>3</td><td>5</td></tr>
+	<tr><th scope=row>female</th><td>2</td><td>0</td></tr>
+	<tr><th scope=row>F    </th><td>5</td><td>6</td></tr>
+	<tr><th scope=row>male.</th><td>1</td><td>3</td></tr>
+	<tr><th scope=row>m</th><td>3</td><td>5</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Видалимо повтори</span>
+<span class="n">adj_m</span> <span class="o">|&gt;</span> <span class="nf">as.data.frame</span><span class="p">()</span> <span class="o">|&gt;</span> <span class="n">dplyr</span><span class="o">::</span><span class="nf">distinct</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 6 × 2</caption>
+<thead>
+	<tr><th></th><th scope=col>male</th><th scope=col>female</th></tr>
+	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>Male</th><td>1</td><td>3</td></tr>
+	<tr><th scope=row>X...M</th><td>4</td><td>6</td></tr>
+	<tr><th scope=row>Female</th><td>2</td><td>1</td></tr>
+	<tr><th scope=row>Man</th><td>3</td><td>5</td></tr>
+	<tr><th scope=row>female</th><td>2</td><td>0</td></tr>
+	<tr><th scope=row>F....</th><td>5</td><td>6</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Примінимо інформацію про відстані до “нечистих” даних про стать:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">nums</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">adj_m</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="n">which.min</span><span class="p">)</span> <span class="c1"># Знайдемо найближчі значення</span>
+<span class="n">nums</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.dl-inline {width: auto; margin:0; padding: 0}
+.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
+.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
+.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
+</style><dl class=dl-inline><dt>Male</dt><dd>1</dd><dt><span style=white-space:pre-wrap>   M</span></dt><dd>1</dd><dt>Female</dt><dd>2</dd><dt>Man</dt><dd>1</dd><dt>female</dt><dd>2</dd><dt><span style=white-space:pre-wrap>F    </span></dt><dd>1</dd><dt>male.</dt><dd>1</dd><dt>m</dt><dd>1</dd><dt>Man</dt><dd>1</dd><dt>female</dt><dd>2</dd><dt><span style=white-space:pre-wrap>F    </span></dt><dd>1</dd><dt>male.</dt><dd>1</dd><dt>m</dt><dd>1</dd></dl>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">data.frame</span><span class="p">(</span><span class="n">initial</span> <span class="o">=</span> <span class="n">data</span><span class="o">$</span><span class="n">gender</span><span class="p">,</span> <span class="n">coded</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="n">nums</span><span class="p">])</span> <span class="c1"># FFFFFFFFFFFFFF - проблема!</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 2</caption>
+<thead>
+	<tr><th scope=col>initial</th><th scope=col>coded</th></tr>
+	<tr><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>Male  </td><td>male  </td></tr>
+	<tr><td>   M  </td><td>male  </td></tr>
+	<tr><td>Female</td><td>female</td></tr>
+	<tr><td>Man   </td><td>male  </td></tr>
+	<tr><td>female</td><td>female</td></tr>
+	<tr><td>F     </td><td>male  </td></tr>
+	<tr><td>male. </td><td>male  </td></tr>
+	<tr><td>m     </td><td>male  </td></tr>
+	<tr><td>Man   </td><td>male  </td></tr>
+	<tr><td>female</td><td>female</td></tr>
+	<tr><td>F     </td><td>male  </td></tr>
+	<tr><td>male. </td><td>male  </td></tr>
+	<tr><td>m     </td><td>male  </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Як альтернативу для знаходження відстаней між рядками можна використовувати функції з бібліотеки <code class="docutils literal notranslate"><span class="pre">stringdist</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">stringdist</span><span class="p">)</span>
+<span class="nf">adist</span><span class="p">(</span><span class="s">&quot;ao&quot;</span><span class="p">,</span> <span class="s">&quot;oa&quot;</span><span class="p">)</span>
+<span class="nf">stringdist</span><span class="p">(</span><span class="s">&quot;oa&quot;</span><span class="p">,</span> <span class="s">&quot;ao&quot;</span><span class="p">)</span> <span class="c1"># 1, а було 2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A matrix: 1 × 1 of type dbl</caption>
+<tbody>
+	<tr><td>2</td></tr>
+</tbody>
+</table>
+</div><div class="output text_html">1</div></div>
+</div>
+<p>Спробуємо “очистити” дані, які ми отримали з допомогою функції <code class="docutils literal notranslate"><span class="pre">amatch()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">nums</span> <span class="o">&lt;-</span> <span class="nf">amatch</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">gender</span><span class="p">,</span>  <span class="nf">c</span><span class="p">(</span><span class="s">&quot;male&quot;</span><span class="p">,</span> <span class="s">&quot;female&quot;</span><span class="p">),</span> <span class="n">maxDist</span> <span class="o">=</span> <span class="m">4</span><span class="p">)</span> <span class="c1"># Знайдемо найближчі значення</span>
+<span class="n">nums</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>1</li><li>1</li><li>2</li><li>1</li><li>2</li><li>&lt;NA&gt;</li><li>1</li><li>1</li><li>1</li><li>2</li><li>&lt;NA&gt;</li><li>1</li><li>1</li></ol>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">data.frame</span><span class="p">(</span><span class="n">initial</span> <span class="o">=</span> <span class="n">data</span><span class="o">$</span><span class="n">gender</span><span class="p">,</span> <span class="n">coded</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="n">nums</span><span class="p">])</span> <span class="c1"># FFFFFFFFFFFFFF - проблема!</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 2</caption>
+<thead>
+	<tr><th scope=col>initial</th><th scope=col>coded</th></tr>
+	<tr><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>Male  </td><td>male  </td></tr>
+	<tr><td>   M  </td><td>male  </td></tr>
+	<tr><td>Female</td><td>female</td></tr>
+	<tr><td>Man   </td><td>male  </td></tr>
+	<tr><td>female</td><td>female</td></tr>
+	<tr><td>F     </td><td>NA    </td></tr>
+	<tr><td>male. </td><td>male  </td></tr>
+	<tr><td>m     </td><td>male  </td></tr>
+	<tr><td>Man   </td><td>male  </td></tr>
+	<tr><td>female</td><td>female</td></tr>
+	<tr><td>F     </td><td>NA    </td></tr>
+	<tr><td>male. </td><td>male  </td></tr>
+	<tr><td>m     </td><td>male  </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">&lt;-</span> <span class="n">data</span> <span class="o">|&gt;</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">gender</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="n">gender</span> <span class="o">==</span> <span class="s">&quot;F&quot;</span><span class="p">,</span> <span class="s">&quot;female&quot;</span><span class="p">,</span> <span class="n">gender</span><span class="p">))</span> <span class="c1"># ????? # Space</span>
+<span class="n">data</span>
+<span class="n">data</span> <span class="o">&lt;-</span> <span class="n">data</span> <span class="o">|&gt;</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">gender</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="nf">str_trim</span><span class="p">(</span><span class="n">gender</span><span class="p">)</span> <span class="o">==</span> <span class="s">&quot;F&quot;</span><span class="p">,</span> <span class="s">&quot;female&quot;</span><span class="p">,</span> <span class="n">gender</span><span class="p">))</span>
+<span class="n">data</span>
+<span class="n">nums</span> <span class="o">&lt;-</span> <span class="nf">amatch</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">gender</span><span class="p">,</span>  <span class="nf">c</span><span class="p">(</span><span class="s">&quot;male&quot;</span><span class="p">,</span> <span class="s">&quot;female&quot;</span><span class="p">),</span> <span class="n">maxDist</span> <span class="o">=</span> <span class="m">4</span><span class="p">)</span>
+<span class="nf">data.frame</span><span class="p">(</span><span class="n">initial</span> <span class="o">=</span> <span class="n">data</span><span class="o">$</span><span class="n">gender</span><span class="p">,</span> <span class="n">coded</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="n">nums</span><span class="p">])</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 1</caption>
+<thead>
+	<tr><th scope=col>gender</th></tr>
+	<tr><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>Male  </td></tr>
+	<tr><td>   M  </td></tr>
+	<tr><td>Female</td></tr>
+	<tr><td>Man   </td></tr>
+	<tr><td>female</td></tr>
+	<tr><td>F     </td></tr>
+	<tr><td>male. </td></tr>
+	<tr><td>m     </td></tr>
+	<tr><td>Man   </td></tr>
+	<tr><td>female</td></tr>
+	<tr><td>F     </td></tr>
+	<tr><td>male. </td></tr>
+	<tr><td>m     </td></tr>
+</tbody>
+</table>
+</div><div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 1</caption>
+<thead>
+	<tr><th scope=col>gender</th></tr>
+	<tr><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>Male  </td></tr>
+	<tr><td>   M  </td></tr>
+	<tr><td>Female</td></tr>
+	<tr><td>Man   </td></tr>
+	<tr><td>female</td></tr>
+	<tr><td>female</td></tr>
+	<tr><td>male. </td></tr>
+	<tr><td>m     </td></tr>
+	<tr><td>Man   </td></tr>
+	<tr><td>female</td></tr>
+	<tr><td>female</td></tr>
+	<tr><td>male. </td></tr>
+	<tr><td>m     </td></tr>
+</tbody>
+</table>
+</div><div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 2</caption>
+<thead>
+	<tr><th scope=col>initial</th><th scope=col>coded</th></tr>
+	<tr><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>Male  </td><td>male  </td></tr>
+	<tr><td>   M  </td><td>male  </td></tr>
+	<tr><td>Female</td><td>female</td></tr>
+	<tr><td>Man   </td><td>male  </td></tr>
+	<tr><td>female</td><td>female</td></tr>
+	<tr><td>female</td><td>female</td></tr>
+	<tr><td>male. </td><td>male  </td></tr>
+	<tr><td>m     </td><td>male  </td></tr>
+	<tr><td>Man   </td><td>male  </td></tr>
+	<tr><td>female</td><td>female</td></tr>
+	<tr><td>female</td><td>female</td></tr>
+	<tr><td>male. </td><td>male  </td></tr>
+	<tr><td>m     </td><td>male  </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Місія виконана! Замінимо та збережемо інформацію у файл для майбутніх експериментів по цій темі:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;../../data/badtitled.csv&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">clean_names</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="m">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 2 × 5</caption>
+<thead>
+	<tr><th></th><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th><th scope=col>empty</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;lgl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>1</th><td>23</td><td>185</td><td>  NA</td><td>Male</td><td>NA</td></tr>
+	<tr><th scope=row>2</th><td>41</td><td>175</td><td>68.3</td><td>   M</td><td>NA</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">&lt;-</span> <span class="n">data</span> <span class="o">|&gt;</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">person_gender</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="nf">str_trim</span><span class="p">(</span><span class="n">person_gender</span><span class="p">)</span> <span class="o">==</span> <span class="s">&quot;F&quot;</span><span class="p">,</span> <span class="s">&quot;female&quot;</span><span class="p">,</span> <span class="n">person_gender</span><span class="p">))</span>
+<span class="n">m</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;male&quot;</span><span class="p">,</span> <span class="s">&quot;female&quot;</span><span class="p">)</span>
+<span class="n">nums</span> <span class="o">&lt;-</span> <span class="nf">amatch</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">person_gender</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">maxDist</span> <span class="o">=</span> <span class="m">4</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">&lt;-</span> <span class="n">data</span> <span class="o">|&gt;</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">person_gender</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="n">nums</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 5</caption>
+<thead>
+	<tr><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th><th scope=col>empty</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;lgl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185 </td><td>  NA</td><td>male  </td><td>NA</td></tr>
+	<tr><td>41</td><td>175 </td><td>68.3</td><td>male  </td><td>NA</td></tr>
+	<tr><td>11</td><td>142*</td><td>55.4</td><td>female</td><td>NA</td></tr>
+	<tr><td>12</td><td>NA  </td><td>48.2</td><td>male  </td><td>NA</td></tr>
+	<tr><td>54</td><td>191 </td><td>  NA</td><td>female</td><td>NA</td></tr>
+	<tr><td>32</td><td>168 </td><td>78.0</td><td>female</td><td>NA</td></tr>
+	<tr><td>22</td><td>NA  </td><td>54.0</td><td>male  </td><td>NA</td></tr>
+	<tr><td>21</td><td>165 </td><td>  NA</td><td>male  </td><td>NA</td></tr>
+	<tr><td>14</td><td>NA  </td><td>90.2</td><td>male  </td><td>NA</td></tr>
+	<tr><td>51</td><td>250 </td><td>  NA</td><td>female</td><td>NA</td></tr>
+	<tr><td>41</td><td>20  </td><td>81.0</td><td>female</td><td>NA</td></tr>
+	<tr><td>66</td><td>NA  </td><td>59.0</td><td>male  </td><td>NA</td></tr>
+	<tr><td>71</td><td>171 </td><td>  NA</td><td>male  </td><td>NA</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Замінимо також висоту на числове значення, а не текст:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">&lt;-</span> <span class="n">data</span> <span class="o">|&gt;</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">person_height</span> <span class="o">=</span> <span class="nf">str_remove</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">person_height</span><span class="p">,</span> <span class="n">pattern</span> <span class="o">=</span> <span class="s">&quot;[*]&quot;</span><span class="p">))</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 5</caption>
+<thead>
+	<tr><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th><th scope=col>empty</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;lgl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185</td><td>  NA</td><td>male  </td><td>NA</td></tr>
+	<tr><td>41</td><td>175</td><td>68.3</td><td>male  </td><td>NA</td></tr>
+	<tr><td>11</td><td>142</td><td>55.4</td><td>female</td><td>NA</td></tr>
+	<tr><td>12</td><td>NA </td><td>48.2</td><td>male  </td><td>NA</td></tr>
+	<tr><td>54</td><td>191</td><td>  NA</td><td>female</td><td>NA</td></tr>
+	<tr><td>32</td><td>168</td><td>78.0</td><td>female</td><td>NA</td></tr>
+	<tr><td>22</td><td>NA </td><td>54.0</td><td>male  </td><td>NA</td></tr>
+	<tr><td>21</td><td>165</td><td>  NA</td><td>male  </td><td>NA</td></tr>
+	<tr><td>14</td><td>NA </td><td>90.2</td><td>male  </td><td>NA</td></tr>
+	<tr><td>51</td><td>250</td><td>  NA</td><td>female</td><td>NA</td></tr>
+	<tr><td>41</td><td>20 </td><td>81.0</td><td>female</td><td>NA</td></tr>
+	<tr><td>66</td><td>NA </td><td>59.0</td><td>male  </td><td>NA</td></tr>
+	<tr><td>71</td><td>171</td><td>  NA</td><td>male  </td><td>NA</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">&lt;-</span> <span class="n">data</span> <span class="o">|&gt;</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">person_height</span> <span class="o">=</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">person_height</span><span class="p">))</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 5</caption>
+<thead>
+	<tr><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th><th scope=col>empty</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;lgl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185</td><td>  NA</td><td>male  </td><td>NA</td></tr>
+	<tr><td>41</td><td>175</td><td>68.3</td><td>male  </td><td>NA</td></tr>
+	<tr><td>11</td><td>142</td><td>55.4</td><td>female</td><td>NA</td></tr>
+	<tr><td>12</td><td> NA</td><td>48.2</td><td>male  </td><td>NA</td></tr>
+	<tr><td>54</td><td>191</td><td>  NA</td><td>female</td><td>NA</td></tr>
+	<tr><td>32</td><td>168</td><td>78.0</td><td>female</td><td>NA</td></tr>
+	<tr><td>22</td><td> NA</td><td>54.0</td><td>male  </td><td>NA</td></tr>
+	<tr><td>21</td><td>165</td><td>  NA</td><td>male  </td><td>NA</td></tr>
+	<tr><td>14</td><td> NA</td><td>90.2</td><td>male  </td><td>NA</td></tr>
+	<tr><td>51</td><td>250</td><td>  NA</td><td>female</td><td>NA</td></tr>
+	<tr><td>41</td><td> 20</td><td>81.0</td><td>female</td><td>NA</td></tr>
+	<tr><td>66</td><td> NA</td><td>59.0</td><td>male  </td><td>NA</td></tr>
+	<tr><td>71</td><td>171</td><td>  NA</td><td>male  </td><td>NA</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">write.csv</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">file</span> <span class="o">=</span> <span class="s">&quot;../../data/cleaned_titled.csv&quot;</span><span class="p">,</span> <span class="n">row.names</span> <span class="o">=</span> <span class="bp">F</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="missing-value-imputation">
+<h2>3. Заміна пропусків у даних (Missing Value Imputation)<a class="headerlink" href="#missing-value-imputation" title="Permalink to this headline">¶</a></h2>
+<p>Дані реального світу часто мають відсутні значення. Дані можуть мати відсутні значення з ряду причин, таких як спостереження, які не були записані, пошкодження даних тощо.</p>
+<p><strong>Проблема</strong></p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Обробка відсутніх даних важлива, оскільки багато алгоритмів машинного навчання або програм для візуалізації та аналізу данихне підтримують дані з відсутніми значеннями.</p></li>
+</ul>
+<p><strong>Рішення</strong></p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Видалити рядки з відсутніми даними з набору даних.</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Замінити відсутні значення середніми/медіанними значеннями.</p></li>
+</ul>
+<p><strong>Примітка</strong></p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Використовуйте бізнес-логіку/знання для окремого підходу до кожної змінної</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> У разі малого розміру вибірки або великої частки спостережень із відсутніми значеннями бажано замінювати, а видаляти</p></li>
+</ul>
+<p>Некоректна інформація в даних може бути записана різними способами, наприклад у датасеті ці дані можуть бутьу визначені як <code class="docutils literal notranslate"><span class="pre">NA</span></code> <code class="docutils literal notranslate"><span class="pre">&lt;NA&gt;</span></code> <code class="docutils literal notranslate"><span class="pre">NULL</span></code> <code class="docutils literal notranslate"><span class="pre">undefinded</span></code> <code class="docutils literal notranslate"><span class="pre">Undefined</span></code>. Перед обробкою таких даних усі невизначені записи варто конвертувати у <code class="docutils literal notranslate"><span class="pre">NA</span></code>.</p>
+<p>Щоб переглянути список усіх стовпців, що мають пропуски даних можна скористатися наступним кодом:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">&lt;-</span> <span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;../../data/cleaned_titled.csv&quot;</span><span class="p">,</span> <span class="n">na.strings</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;&lt;NA&gt;&quot;</span><span class="p">,</span> <span class="s">&quot;NA&quot;</span><span class="p">,</span> <span class="s">&quot;null&quot;</span><span class="p">,</span> <span class="s">&quot;undefined&quot;</span><span class="p">,</span> <span class="s">&quot;NULL&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
+<span class="nf">glimpse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rows: 13
+Columns: 5
+$ person_age    &lt;int&gt; 23, 41, 11, 12, 54, 32, 22, 21, 14, 51, 41, 66, 71
+$ person_height &lt;int&gt; 185, 175, 142, NA, 191, 168, NA, 165, NA, 250, 20, NA, 1~
+$ person_weight &lt;dbl&gt; NA, 68.3, 55.4, 48.2, NA, 78.0, 54.0, NA, 90.2, NA, 81.0~
+$ person_gender &lt;chr&gt; &quot;male&quot;, &quot;male&quot;, &quot;female&quot;, &quot;male&quot;, &quot;female&quot;, &quot;female&quot;, &quot;m~
+$ empty         &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>3.1. Перевірка наявності пропусків у даних<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Пакет <strong>MICE (Multivariate Imputation via Chained Equations)</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">mice</span><span class="p">)</span>
+<span class="nf">md.pattern</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Attaching package: &#39;mice&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The following object is masked from &#39;package:stats&#39;:
+
+    filter
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The following objects are masked from &#39;package:base&#39;:
+
+    cbind, rbind
+</pre></div>
+</div>
+<div class="output text_html"><table class="dataframe">
+<caption>A matrix: 4 × 6 of type dbl</caption>
+<thead>
+	<tr><th></th><th scope=col>person_age</th><th scope=col>person_gender</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>empty</th><th scope=col></th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>4</th><td>1</td><td>1</td><td>1</td><td>1</td><td> 0</td><td> 1</td></tr>
+	<tr><th scope=row>5</th><td>1</td><td>1</td><td>1</td><td>0</td><td> 0</td><td> 2</td></tr>
+	<tr><th scope=row>4</th><td>1</td><td>1</td><td>0</td><td>1</td><td> 0</td><td> 2</td></tr>
+	<tr><th scope=row></th><td>0</td><td>0</td><td>4</td><td>5</td><td>13</td><td>22</td></tr>
+</tbody>
+</table>
+</div><img alt="../../_images/data-cleaning_92_4.png" src="../../_images/data-cleaning_92_4.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">VIM</span><span class="p">)</span>
+<span class="n">mice_plot</span> <span class="o">&lt;-</span> <span class="nf">aggr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> 
+                  <span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;navyblue&#39;</span><span class="p">,</span><span class="s">&#39;yellow&#39;</span><span class="p">),</span>
+                  <span class="n">numbers</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> 
+                  <span class="n">sortVars</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span>
+                  <span class="n">labels</span><span class="o">=</span><span class="nf">names</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> 
+                  <span class="n">cex.axis</span><span class="o">=</span><span class="n">.</span><span class="m">7</span><span class="p">,</span>
+                  <span class="n">gap</span><span class="o">=</span><span class="m">3</span><span class="p">,</span> 
+                  <span class="n">ylab</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Missing data&quot;</span><span class="p">,</span><span class="s">&quot;Pattern&quot;</span><span class="p">))</span>
+<span class="n">mice_plot</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading required package: colorspace
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading required package: grid
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>VIM is ready to use.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Suggestions and bug-reports can be submitted at: https://github.com/statistikat/VIM/issues
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Attaching package: &#39;VIM&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The following object is masked from &#39;package:datasets&#39;:
+
+    sleep
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Variables sorted by number of missings: 
+      Variable     Count
+         empty 1.0000000
+ person_weight 0.3846154
+ person_height 0.3076923
+    person_age 0.0000000
+ person_gender 0.0000000
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Missings in variables:
+      Variable Count
+ person_height     4
+ person_weight     5
+         empty    13
+</pre></div>
+</div>
+<img alt="../../_images/data-cleaning_93_8.png" src="../../_images/data-cleaning_93_8.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">Amelia</span><span class="p">)</span>
+<span class="n">Amelia</span><span class="o">::</span><span class="nf">missmap</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading required package: Rcpp
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>## 
+## Amelia II: Multiple Imputation
+## (Version 1.8.0, built: 2021-05-26)
+## Copyright (C) 2005-2022 James Honaker, Gary King and Matthew Blackwell
+## Refer to http://gking.harvard.edu/amelia/ for more information
+## 
+</pre></div>
+</div>
+<img alt="../../_images/data-cleaning_94_2.png" src="../../_images/data-cleaning_94_2.png" />
+</div>
+</div>
+<p>Також можна скористатися альтернативними макетами: <code class="docutils literal notranslate"><span class="pre">missForest</span></code>, <code class="docutils literal notranslate"><span class="pre">mi</span></code>.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="data-frame">
+<h3>3.2. Видалення пустих рядків та сповпців у <code class="docutils literal notranslate"><span class="pre">data.frame</span></code><a class="headerlink" href="#data-frame" title="Permalink to this headline">¶</a></h3>
+<p>Переглянемо стовпці, що містять пропуски:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Переглянемо список стовпців з пропусками</span>
+<span class="nf">colnames</span><span class="p">(</span><span class="n">data</span><span class="p">)[</span><span class="nf">apply</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">anyNA</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'person_height'</li><li>'person_weight'</li><li>'empty'</li></ol>
+</div></div>
+</div>
+<p>Функція <code class="docutils literal notranslate"><span class="pre">complete.cases</span></code> повертає логічні значення</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">complete.cases</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="c1"># бо є стовпець Empty</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>FALSE</li><li>FALSE</li><li>FALSE</li><li>FALSE</li><li>FALSE</li><li>FALSE</li><li>FALSE</li><li>FALSE</li><li>FALSE</li><li>FALSE</li><li>FALSE</li><li>FALSE</li><li>FALSE</li></ol>
+</div></div>
+</div>
+<p>Також видаляти стовпці та рядки з <code class="docutils literal notranslate"><span class="pre">data.frame</span></code> можна за допомогою пакету <code class="docutils literal notranslate"><span class="pre">janitor</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">janitor</span><span class="p">)</span>
+<span class="n">data_cleaned</span> <span class="o">&lt;-</span> <span class="nf">remove_empty</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">which</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;rows&quot;</span><span class="p">,</span><span class="s">&quot;cols&quot;</span><span class="p">),</span> <span class="n">quiet</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<span class="n">data_cleaned</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No empty rows to remove.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Removing 1 empty columns of 5 columns total (Removed: empty).
+</pre></div>
+</div>
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 4</caption>
+<thead>
+	<tr><th></th><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>1</th><td>23</td><td>185</td><td>  NA</td><td>male  </td></tr>
+	<tr><th scope=row>2</th><td>41</td><td>175</td><td>68.3</td><td>male  </td></tr>
+	<tr><th scope=row>3</th><td>11</td><td>142</td><td>55.4</td><td>female</td></tr>
+	<tr><th scope=row>4</th><td>12</td><td> NA</td><td>48.2</td><td>male  </td></tr>
+	<tr><th scope=row>5</th><td>54</td><td>191</td><td>  NA</td><td>female</td></tr>
+	<tr><th scope=row>6</th><td>32</td><td>168</td><td>78.0</td><td>female</td></tr>
+	<tr><th scope=row>7</th><td>22</td><td> NA</td><td>54.0</td><td>male  </td></tr>
+	<tr><th scope=row>8</th><td>21</td><td>165</td><td>  NA</td><td>male  </td></tr>
+	<tr><th scope=row>9</th><td>14</td><td> NA</td><td>90.2</td><td>male  </td></tr>
+	<tr><th scope=row>10</th><td>51</td><td>250</td><td>  NA</td><td>female</td></tr>
+	<tr><th scope=row>11</th><td>41</td><td> 20</td><td>81.0</td><td>female</td></tr>
+	<tr><th scope=row>12</th><td>66</td><td> NA</td><td>59.0</td><td>male  </td></tr>
+	<tr><th scope=row>13</th><td>71</td><td>171</td><td>  NA</td><td>male  </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">write.csv</span><span class="p">(</span><span class="n">data_cleaned</span><span class="p">,</span> <span class="n">file</span> <span class="o">=</span> <span class="s">&quot;../../data/cleaned_titled2.csv&quot;</span><span class="p">,</span> <span class="n">row.names</span> <span class="o">=</span> <span class="bp">F</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Як бачимо, колонка <code class="docutils literal notranslate"><span class="pre">empty</span></code> була видалена.</p>
+<p>Щоб переглянути усі записи, що не мають пропусків скористаємося функцією <code class="docutils literal notranslate"><span class="pre">na.omit()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">na.omit</span><span class="p">(</span><span class="n">data_cleaned</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 4 × 4</caption>
+<thead>
+	<tr><th></th><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>2</th><td>41</td><td>175</td><td>68.3</td><td>male  </td></tr>
+	<tr><th scope=row>3</th><td>11</td><td>142</td><td>55.4</td><td>female</td></tr>
+	<tr><th scope=row>6</th><td>32</td><td>168</td><td>78.0</td><td>female</td></tr>
+	<tr><th scope=row>11</th><td>41</td><td> 20</td><td>81.0</td><td>female</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Таким чином пропущені значення будуть видалені з датасети, якщо інформацію переприсвоїти <code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">&lt;-</span> <span class="pre">na.omit(data)</span></code></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="id4">
+<h3>3.3. Заміна пропусків у <code class="docutils literal notranslate"><span class="pre">data.frame</span></code><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>Існує ряд підходів, що використовуються для заміни пропущених значень у датасеті:</p>
+<p><strong>Заміна на 0</strong></p>
+<ul class="simple">
+<li><p>Вставте пропущені значення нулем</p></li>
+</ul>
+<p><strong>Заміна на медіану/середнє значення</strong></p>
+<ul class="simple">
+<li><p>Для числових змінних - середнє або медіана, мінімум, максимум</p></li>
+<li><p>Для категоріальних змінних - мода (бувають випадки, коли моду доцільно використовувати і для цислових)</p></li>
+</ul>
+<p><strong>Сегментна заміна</strong></p>
+<ul class="simple">
+<li><p>Визначення сегментів</p></li>
+<li><p>Обчислення середнього/медіани/моди для сегментів</p></li>
+<li><p>Замінити значення по сегментах</p></li>
+<li><p>Наприклад, ми можемо сказати, що кількість опадів майже не змінюється для міст у певній області України, у такому випадку ми можемо для усіх міст з пропусками записати значення середнє по регіону.</p></li>
+</ul>
+<p><strong>Інтелектуальна заміна</strong> (Частковий випадок сегментної заміни)</p>
+<ul class="simple">
+<li><p>Заміна значень з використанням методів машинного навчання</p></li>
+</ul>
+<div class="section" id="id5">
+<h4>3.3.1. Заміна пропусків на нуль (0)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;../../data/cleaned_titled2.csv&quot;</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 4</caption>
+<thead>
+	<tr><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185</td><td>  NA</td><td>male  </td></tr>
+	<tr><td>41</td><td>175</td><td>68.3</td><td>male  </td></tr>
+	<tr><td>11</td><td>142</td><td>55.4</td><td>female</td></tr>
+	<tr><td>12</td><td> NA</td><td>48.2</td><td>male  </td></tr>
+	<tr><td>54</td><td>191</td><td>  NA</td><td>female</td></tr>
+	<tr><td>32</td><td>168</td><td>78.0</td><td>female</td></tr>
+	<tr><td>22</td><td> NA</td><td>54.0</td><td>male  </td></tr>
+	<tr><td>21</td><td>165</td><td>  NA</td><td>male  </td></tr>
+	<tr><td>14</td><td> NA</td><td>90.2</td><td>male  </td></tr>
+	<tr><td>51</td><td>250</td><td>  NA</td><td>female</td></tr>
+	<tr><td>41</td><td> 20</td><td>81.0</td><td>female</td></tr>
+	<tr><td>66</td><td> NA</td><td>59.0</td><td>male  </td></tr>
+	<tr><td>71</td><td>171</td><td>  NA</td><td>male  </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Замінимо інформацію про вагу з пропусками на <code class="docutils literal notranslate"><span class="pre">0</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data_w0</span> <span class="o">&lt;-</span> <span class="n">data</span> <span class="o">|&gt;</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">person_weight</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">person_weight</span><span class="p">),</span> <span class="m">0</span><span class="p">,</span> <span class="n">person_weight</span><span class="p">))</span>
+<span class="n">data_w0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 4</caption>
+<thead>
+	<tr><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185</td><td> 0.0</td><td>male  </td></tr>
+	<tr><td>41</td><td>175</td><td>68.3</td><td>male  </td></tr>
+	<tr><td>11</td><td>142</td><td>55.4</td><td>female</td></tr>
+	<tr><td>12</td><td> NA</td><td>48.2</td><td>male  </td></tr>
+	<tr><td>54</td><td>191</td><td> 0.0</td><td>female</td></tr>
+	<tr><td>32</td><td>168</td><td>78.0</td><td>female</td></tr>
+	<tr><td>22</td><td> NA</td><td>54.0</td><td>male  </td></tr>
+	<tr><td>21</td><td>165</td><td> 0.0</td><td>male  </td></tr>
+	<tr><td>14</td><td> NA</td><td>90.2</td><td>male  </td></tr>
+	<tr><td>51</td><td>250</td><td> 0.0</td><td>female</td></tr>
+	<tr><td>41</td><td> 20</td><td>81.0</td><td>female</td></tr>
+	<tr><td>66</td><td> NA</td><td>59.0</td><td>male  </td></tr>
+	<tr><td>71</td><td>171</td><td> 0.0</td><td>male  </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Без dplyr</span>
+<span class="n">data_w0</span> <span class="o">&lt;-</span> <span class="n">data</span>
+<span class="n">data_w0</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">data_w0</span><span class="o">$</span><span class="n">person_weight</span><span class="p">),</span> <span class="s">&quot;person_weight&quot;</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="m">0</span>
+<span class="n">data_w0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 4</caption>
+<thead>
+	<tr><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185</td><td> 0.0</td><td>male  </td></tr>
+	<tr><td>41</td><td>175</td><td>68.3</td><td>male  </td></tr>
+	<tr><td>11</td><td>142</td><td>55.4</td><td>female</td></tr>
+	<tr><td>12</td><td> NA</td><td>48.2</td><td>male  </td></tr>
+	<tr><td>54</td><td>191</td><td> 0.0</td><td>female</td></tr>
+	<tr><td>32</td><td>168</td><td>78.0</td><td>female</td></tr>
+	<tr><td>22</td><td> NA</td><td>54.0</td><td>male  </td></tr>
+	<tr><td>21</td><td>165</td><td> 0.0</td><td>male  </td></tr>
+	<tr><td>14</td><td> NA</td><td>90.2</td><td>male  </td></tr>
+	<tr><td>51</td><td>250</td><td> 0.0</td><td>female</td></tr>
+	<tr><td>41</td><td> 20</td><td>81.0</td><td>female</td></tr>
+	<tr><td>66</td><td> NA</td><td>59.0</td><td>male  </td></tr>
+	<tr><td>71</td><td>171</td><td> 0.0</td><td>male  </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Зробити заміну для усіх числових стовпців:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">tidyr</span><span class="p">)</span> <span class="c1"># for replace_na()</span>
+<span class="n">data_all</span> <span class="o">&lt;-</span> <span class="n">data</span> <span class="o">|&gt;</span> <span class="nf">mutate_if</span><span class="p">(</span><span class="n">is.numeric</span> <span class="p">,</span> <span class="n">replace_na</span><span class="p">,</span> <span class="n">replace</span> <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
+<span class="n">data_all</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Attaching package: &#39;tidyr&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The following object is masked from &#39;package:stringdist&#39;:
+
+    extract
+</pre></div>
+</div>
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 4</caption>
+<thead>
+	<tr><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185</td><td> 0.0</td><td>male  </td></tr>
+	<tr><td>41</td><td>175</td><td>68.3</td><td>male  </td></tr>
+	<tr><td>11</td><td>142</td><td>55.4</td><td>female</td></tr>
+	<tr><td>12</td><td>  0</td><td>48.2</td><td>male  </td></tr>
+	<tr><td>54</td><td>191</td><td> 0.0</td><td>female</td></tr>
+	<tr><td>32</td><td>168</td><td>78.0</td><td>female</td></tr>
+	<tr><td>22</td><td>  0</td><td>54.0</td><td>male  </td></tr>
+	<tr><td>21</td><td>165</td><td> 0.0</td><td>male  </td></tr>
+	<tr><td>14</td><td>  0</td><td>90.2</td><td>male  </td></tr>
+	<tr><td>51</td><td>250</td><td> 0.0</td><td>female</td></tr>
+	<tr><td>41</td><td> 20</td><td>81.0</td><td>female</td></tr>
+	<tr><td>66</td><td>  0</td><td>59.0</td><td>male  </td></tr>
+	<tr><td>71</td><td>171</td><td> 0.0</td><td>male  </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id6">
+<h4>3.3.2. Базова числова заміна пропусків<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>Заміна на константи або обчислені значення є стандарним підходом. Так, наприклад, заміна певного значення на середнє матиме вигляд:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data_m</span> <span class="o">&lt;-</span> <span class="n">data</span> <span class="o">|&gt;</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">person_weight</span> <span class="o">=</span> <span class="nf">ifelse</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">person_weight</span><span class="p">),</span> <span class="nf">mean</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">person_weight</span><span class="p">,</span> <span class="n">na.rm</span> <span class="o">=</span> <span class="bp">T</span><span class="p">),</span> <span class="n">person_weight</span><span class="p">))</span>
+<span class="n">data_m</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 4</caption>
+<thead>
+	<tr><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185</td><td>66.7625</td><td>male  </td></tr>
+	<tr><td>41</td><td>175</td><td>68.3000</td><td>male  </td></tr>
+	<tr><td>11</td><td>142</td><td>55.4000</td><td>female</td></tr>
+	<tr><td>12</td><td> NA</td><td>48.2000</td><td>male  </td></tr>
+	<tr><td>54</td><td>191</td><td>66.7625</td><td>female</td></tr>
+	<tr><td>32</td><td>168</td><td>78.0000</td><td>female</td></tr>
+	<tr><td>22</td><td> NA</td><td>54.0000</td><td>male  </td></tr>
+	<tr><td>21</td><td>165</td><td>66.7625</td><td>male  </td></tr>
+	<tr><td>14</td><td> NA</td><td>90.2000</td><td>male  </td></tr>
+	<tr><td>51</td><td>250</td><td>66.7625</td><td>female</td></tr>
+	<tr><td>41</td><td> 20</td><td>81.0000</td><td>female</td></tr>
+	<tr><td>66</td><td> NA</td><td>59.0000</td><td>male  </td></tr>
+	<tr><td>71</td><td>171</td><td>66.7625</td><td>male  </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Заміна на min, max, median не відрізняється.</p>
+<p>Якщо виникає потреба замінити, наприклад, усі значення на медіану у всіх стовпцях за один прохід можна скористатися функцією <code class="docutils literal notranslate"><span class="pre">mutate_if()</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data_all</span> <span class="o">&lt;-</span> <span class="n">data</span> <span class="o">|&gt;</span> <span class="nf">mutate_if</span><span class="p">(</span><span class="n">is.numeric</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="nf">ifelse</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nf">median</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">na.rm</span> <span class="o">=</span> <span class="bp">T</span><span class="p">),</span> <span class="n">x</span><span class="p">))</span>
+<span class="n">data_all</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 4</caption>
+<thead>
+	<tr><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185</td><td>63.65</td><td>male  </td></tr>
+	<tr><td>41</td><td>175</td><td>68.30</td><td>male  </td></tr>
+	<tr><td>11</td><td>142</td><td>55.40</td><td>female</td></tr>
+	<tr><td>12</td><td>171</td><td>48.20</td><td>male  </td></tr>
+	<tr><td>54</td><td>191</td><td>63.65</td><td>female</td></tr>
+	<tr><td>32</td><td>168</td><td>78.00</td><td>female</td></tr>
+	<tr><td>22</td><td>171</td><td>54.00</td><td>male  </td></tr>
+	<tr><td>21</td><td>165</td><td>63.65</td><td>male  </td></tr>
+	<tr><td>14</td><td>171</td><td>90.20</td><td>male  </td></tr>
+	<tr><td>51</td><td>250</td><td>63.65</td><td>female</td></tr>
+	<tr><td>41</td><td> 20</td><td>81.00</td><td>female</td></tr>
+	<tr><td>66</td><td>171</td><td>59.00</td><td>male  </td></tr>
+	<tr><td>71</td><td>171</td><td>63.65</td><td>male  </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Розгялнемо кілька бібліотек для перевірки даних на наявність про</p>
+<p>Ще одним із варіантів заміни значень може бути використання бібліотеки <code class="docutils literal notranslate"><span class="pre">Hmisc</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">Hmisc</span><span class="p">)</span>
+<span class="n">data_wm</span> <span class="o">&lt;-</span> <span class="n">data</span> <span class="o">|&gt;</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">person_weight</span> <span class="o">=</span> <span class="nf">impute</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">person_weight</span><span class="p">,</span> <span class="n">fun</span> <span class="o">=</span> <span class="n">mean</span><span class="p">))</span> <span class="c1"># mean imputation</span>
+<span class="c1"># Аналогічно можна замінити на min,max, median чи інші функції</span>
+<span class="n">data_wm</span> 
+<span class="c1"># * Значення із * - замінені</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading required package: lattice
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading required package: survival
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading required package: Formula
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading required package: ggplot2
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Attaching package: &#39;Hmisc&#39;
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The following objects are masked from &#39;package:dplyr&#39;:
+
+    src, summarize
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The following objects are masked from &#39;package:base&#39;:
+
+    format.pval, units
+</pre></div>
+</div>
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 4</caption>
+<thead>
+	<tr><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;impute&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185</td><td>66.7625</td><td>male  </td></tr>
+	<tr><td>41</td><td>175</td><td>68.3000</td><td>male  </td></tr>
+	<tr><td>11</td><td>142</td><td>55.4000</td><td>female</td></tr>
+	<tr><td>12</td><td> NA</td><td>48.2000</td><td>male  </td></tr>
+	<tr><td>54</td><td>191</td><td>66.7625</td><td>female</td></tr>
+	<tr><td>32</td><td>168</td><td>78.0000</td><td>female</td></tr>
+	<tr><td>22</td><td> NA</td><td>54.0000</td><td>male  </td></tr>
+	<tr><td>21</td><td>165</td><td>66.7625</td><td>male  </td></tr>
+	<tr><td>14</td><td> NA</td><td>90.2000</td><td>male  </td></tr>
+	<tr><td>51</td><td>250</td><td>66.7625</td><td>female</td></tr>
+	<tr><td>41</td><td> 20</td><td>81.0000</td><td>female</td></tr>
+	<tr><td>66</td><td> NA</td><td>59.0000</td><td>male  </td></tr>
+	<tr><td>71</td><td>171</td><td>66.7625</td><td>male  </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="hot-deck-imputation">
+<h4>3.3.3. Hot deck imputation (як перекласти???)<a class="headerlink" href="#hot-deck-imputation" title="Permalink to this headline">¶</a></h4>
+<p>Метод <code class="docutils literal notranslate"><span class="pre">Hot</span> <span class="pre">deck</span> <span class="pre">imputation</span></code> передбачає, що пропущені значення обчислюються шляхом копіювання значень із подібних записів у тому ж наборі даних.</p>
+<p>Основне питання при <code class="docutils literal notranslate"><span class="pre">Hot</span> <span class="pre">deck</span> <span class="pre">imputation</span></code> полягає в тому, як вибрати значення заміни. Одним із поширених підходів є випадковий відбір:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># set.seed(1)</span>
+<span class="n">data_hot</span> <span class="o">&lt;-</span> <span class="n">data</span> <span class="o">|&gt;</span> <span class="nf">mutate</span><span class="p">(</span><span class="n">person_weight</span> <span class="o">=</span> <span class="nf">impute</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">person_weight</span><span class="p">,</span> <span class="s">&quot;random&quot;</span><span class="p">))</span> 
+<span class="n">data_hot</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 4</caption>
+<thead>
+	<tr><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;impute&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185</td><td>68.3</td><td>male  </td></tr>
+	<tr><td>41</td><td>175</td><td>68.3</td><td>male  </td></tr>
+	<tr><td>11</td><td>142</td><td>55.4</td><td>female</td></tr>
+	<tr><td>12</td><td> NA</td><td>48.2</td><td>male  </td></tr>
+	<tr><td>54</td><td>191</td><td>68.3</td><td>female</td></tr>
+	<tr><td>32</td><td>168</td><td>78.0</td><td>female</td></tr>
+	<tr><td>22</td><td> NA</td><td>54.0</td><td>male  </td></tr>
+	<tr><td>21</td><td>165</td><td>59.0</td><td>male  </td></tr>
+	<tr><td>14</td><td> NA</td><td>90.2</td><td>male  </td></tr>
+	<tr><td>51</td><td>250</td><td>68.3</td><td>female</td></tr>
+	<tr><td>41</td><td> 20</td><td>81.0</td><td>female</td></tr>
+	<tr><td>66</td><td> NA</td><td>59.0</td><td>male  </td></tr>
+	<tr><td>71</td><td>171</td><td>78.0</td><td>male  </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Вихідне значення залежить від значення <code class="docutils literal notranslate"><span class="pre">seed</span></code>.</p>
+</div>
+<div class="section" id="id7">
+<h4>3.3.4. Сегментна заміна пропусків<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<p>Заміна по сегментах часто дозволяє будувати точніші математичні моделі, адже групові середні краще описують явища і процеси, ніж загальні для всієї вибірки.</p>
+<p>Знайдемо середні значення ваги за статтю та використаємо ці значення для заміни пропусків у даних.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data_sgm</span> <span class="o">&lt;-</span> <span class="n">data</span> <span class="o">|&gt;</span> 
+                <span class="nf">group_by</span><span class="p">(</span><span class="n">person_gender</span><span class="p">)</span> <span class="o">|&gt;</span>
+                <span class="nf">mutate</span><span class="p">(</span><span class="n">person_weight</span> <span class="o">=</span> <span class="nf">replace_na</span><span class="p">(</span><span class="n">person_weight</span><span class="p">,</span> <span class="nf">mean</span><span class="p">(</span><span class="n">person_weight</span><span class="p">,</span> <span class="n">na.rm</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)))</span>
+<span class="n">data_sgm</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A grouped_df: 13 × 4</caption>
+<thead>
+	<tr><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185</td><td>63.94000</td><td>male  </td></tr>
+	<tr><td>41</td><td>175</td><td>68.30000</td><td>male  </td></tr>
+	<tr><td>11</td><td>142</td><td>55.40000</td><td>female</td></tr>
+	<tr><td>12</td><td> NA</td><td>48.20000</td><td>male  </td></tr>
+	<tr><td>54</td><td>191</td><td>71.46667</td><td>female</td></tr>
+	<tr><td>32</td><td>168</td><td>78.00000</td><td>female</td></tr>
+	<tr><td>22</td><td> NA</td><td>54.00000</td><td>male  </td></tr>
+	<tr><td>21</td><td>165</td><td>63.94000</td><td>male  </td></tr>
+	<tr><td>14</td><td> NA</td><td>90.20000</td><td>male  </td></tr>
+	<tr><td>51</td><td>250</td><td>71.46667</td><td>female</td></tr>
+	<tr><td>41</td><td> 20</td><td>81.00000</td><td>female</td></tr>
+	<tr><td>66</td><td> NA</td><td>59.00000</td><td>male  </td></tr>
+	<tr><td>71</td><td>171</td><td>63.94000</td><td>male  </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Також можна здійснити заміну значень по усіх стовпцях датасету за один раз. Проте не варто такий підхід використовувати постійно, а враховувати бізнес-логіку процесів, що вивчаються.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data_sgm2</span> <span class="o">&lt;-</span> <span class="n">data</span> <span class="o">%&gt;%</span> 
+  <span class="nf">group_by</span><span class="p">(</span><span class="n">person_gender</span><span class="p">)</span> <span class="o">%&gt;%</span> 
+    <span class="nf">mutate</span><span class="p">(</span>
+      <span class="nf">across</span><span class="p">(</span><span class="nf">everything</span><span class="p">(),</span> <span class="o">~</span><span class="nf">replace_na</span><span class="p">(</span><span class="n">.x</span><span class="p">,</span> <span class="nf">min</span><span class="p">(</span><span class="n">.x</span><span class="p">,</span> <span class="n">na.rm</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)))</span>
+    <span class="p">)</span>
+<span class="n">data_sgm2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A grouped_df: 13 × 4</caption>
+<thead>
+	<tr><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185</td><td>48.2</td><td>male  </td></tr>
+	<tr><td>41</td><td>175</td><td>68.3</td><td>male  </td></tr>
+	<tr><td>11</td><td>142</td><td>55.4</td><td>female</td></tr>
+	<tr><td>12</td><td>165</td><td>48.2</td><td>male  </td></tr>
+	<tr><td>54</td><td>191</td><td>55.4</td><td>female</td></tr>
+	<tr><td>32</td><td>168</td><td>78.0</td><td>female</td></tr>
+	<tr><td>22</td><td>165</td><td>54.0</td><td>male  </td></tr>
+	<tr><td>21</td><td>165</td><td>48.2</td><td>male  </td></tr>
+	<tr><td>14</td><td>165</td><td>90.2</td><td>male  </td></tr>
+	<tr><td>51</td><td>250</td><td>55.4</td><td>female</td></tr>
+	<tr><td>41</td><td> 20</td><td>81.0</td><td>female</td></tr>
+	<tr><td>66</td><td>165</td><td>59.0</td><td>male  </td></tr>
+	<tr><td>71</td><td>171</td><td>48.2</td><td>male  </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Якщо ж є потреба замінювати по окремих стовпцях, то їх можна вказати замість <code class="docutils literal notranslate"><span class="pre">everything()</span></code>: <code class="docutils literal notranslate"><span class="pre">across(c(&quot;person_height&quot;,</span> <span class="pre">&quot;person_weight&quot;),</span> <span class="pre">~replace_na(.x,</span> <span class="pre">min(.x,</span> <span class="pre">na.rm</span> <span class="pre">=</span> <span class="pre">TRUE)))</span></code>.</p>
+<p>Іншим варіантом може бути вказання номерів колонок: <code class="docutils literal notranslate"><span class="pre">across(c(1,3),</span> <span class="pre">~replace_na(.x,</span> <span class="pre">min(.x,</span> <span class="pre">na.rm</span> <span class="pre">=</span> <span class="pre">TRUE)))</span></code></p>
+</div>
+<div class="section" id="id8">
+<h4>3.3.5. Інтелектуальні методи заміни<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<p>Теоретично інтелектуальні методи заміни пропусків є найкращими, адже враховують математичні залежності у даних.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">VIM</span><span class="p">)</span>
+<span class="n">data_knn</span> <span class="o">&lt;-</span> <span class="nf">kNN</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">data_knn</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 8</caption>
+<thead>
+	<tr><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th><th scope=col>person_age_imp</th><th scope=col>person_height_imp</th><th scope=col>person_weight_imp</th><th scope=col>person_gender_imp</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;lgl&gt;</th><th scope=col>&lt;lgl&gt;</th><th scope=col>&lt;lgl&gt;</th><th scope=col>&lt;lgl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185</td><td>59.0</td><td>male  </td><td>FALSE</td><td>FALSE</td><td> TRUE</td><td>FALSE</td></tr>
+	<tr><td>41</td><td>175</td><td>68.3</td><td>male  </td><td>FALSE</td><td>FALSE</td><td>FALSE</td><td>FALSE</td></tr>
+	<tr><td>11</td><td>142</td><td>55.4</td><td>female</td><td>FALSE</td><td>FALSE</td><td>FALSE</td><td>FALSE</td></tr>
+	<tr><td>12</td><td>168</td><td>48.2</td><td>male  </td><td>FALSE</td><td> TRUE</td><td>FALSE</td><td>FALSE</td></tr>
+	<tr><td>54</td><td>191</td><td>68.3</td><td>female</td><td>FALSE</td><td>FALSE</td><td> TRUE</td><td>FALSE</td></tr>
+	<tr><td>32</td><td>168</td><td>78.0</td><td>female</td><td>FALSE</td><td>FALSE</td><td>FALSE</td><td>FALSE</td></tr>
+	<tr><td>22</td><td>168</td><td>54.0</td><td>male  </td><td>FALSE</td><td> TRUE</td><td>FALSE</td><td>FALSE</td></tr>
+	<tr><td>21</td><td>165</td><td>59.0</td><td>male  </td><td>FALSE</td><td>FALSE</td><td> TRUE</td><td>FALSE</td></tr>
+	<tr><td>14</td><td>168</td><td>90.2</td><td>male  </td><td>FALSE</td><td> TRUE</td><td>FALSE</td><td>FALSE</td></tr>
+	<tr><td>51</td><td>250</td><td>68.3</td><td>female</td><td>FALSE</td><td>FALSE</td><td> TRUE</td><td>FALSE</td></tr>
+	<tr><td>41</td><td> 20</td><td>81.0</td><td>female</td><td>FALSE</td><td>FALSE</td><td>FALSE</td><td>FALSE</td></tr>
+	<tr><td>66</td><td>168</td><td>59.0</td><td>male  </td><td>FALSE</td><td> TRUE</td><td>FALSE</td><td>FALSE</td></tr>
+	<tr><td>71</td><td>171</td><td>59.0</td><td>male  </td><td>FALSE</td><td>FALSE</td><td> TRUE</td><td>FALSE</td></tr>
+</tbody>
+</table>
+</div><div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 13 × 4</caption>
+<thead>
+	<tr><th scope=col>person_age</th><th scope=col>person_height</th><th scope=col>person_weight</th><th scope=col>person_gender</th></tr>
+	<tr><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>23</td><td>185</td><td>  NA</td><td>male  </td></tr>
+	<tr><td>41</td><td>175</td><td>68.3</td><td>male  </td></tr>
+	<tr><td>11</td><td>142</td><td>55.4</td><td>female</td></tr>
+	<tr><td>12</td><td> NA</td><td>48.2</td><td>male  </td></tr>
+	<tr><td>54</td><td>191</td><td>  NA</td><td>female</td></tr>
+	<tr><td>32</td><td>168</td><td>78.0</td><td>female</td></tr>
+	<tr><td>22</td><td> NA</td><td>54.0</td><td>male  </td></tr>
+	<tr><td>21</td><td>165</td><td>  NA</td><td>male  </td></tr>
+	<tr><td>14</td><td> NA</td><td>90.2</td><td>male  </td></tr>
+	<tr><td>51</td><td>250</td><td>  NA</td><td>female</td></tr>
+	<tr><td>41</td><td> 20</td><td>81.0</td><td>female</td></tr>
+	<tr><td>66</td><td> NA</td><td>59.0</td><td>male  </td></tr>
+	<tr><td>71</td><td>171</td><td>  NA</td><td>male  </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Ще одним схожим методом заміни пропусків може бути здійснення прогнозів на основі регресії чи складніших математичних методів пропусків.</p>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="id9">
+<h2>4. Аналіз та обробка статистичних викидів у даних<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p><strong>Виявлення аномалій</strong> — це сукупність методів, призначених для виявлення незвичайних точок даних, які мають вирішальне значення для виявлення шахрайства та захисту комп’ютерних мереж від зловмисної діяльності.</p>
+<p><strong>Аномалія</strong> - точка даних або набір точок даних, які не мають таку саму структуру та поведінку, що й інші дані.</p>
+<p>Аномалії у даних можуть мати різну природу та по різному себе проявляти:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Точкова аномалія</p>
+<ul>
+<li><p>Єдина точка даних</p></li>
+<li><p>Незвично в порівнянні з іншими даними</p></li>
+</ul>
+</li>
+</ul>
+<p>Приклад: одна добова висока температура 41°С серед ряду звичайних весняних днів</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">temp</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">15</span><span class="p">,</span> <span class="m">17</span><span class="p">,</span> <span class="m">19</span><span class="p">,</span> <span class="m">12</span><span class="p">,</span> <span class="m">30</span><span class="p">,</span> <span class="m">41</span><span class="p">,</span> <span class="m">17</span><span class="p">,</span> <span class="m">20</span><span class="p">)</span>
+<span class="nf">boxplot</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">ylab</span> <span class="o">=</span> <span class="s">&quot;Celcium&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/data-cleaning_152_0.png" src="../../_images/data-cleaning_152_0.png" />
+</div>
+</div>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> Колективна аномалія</p>
+<ul>
+<li><p>Аномальна колекція екземплярів даних</p></li>
+<li><p>Незвично, якщо розглядати разом</p></li>
+</ul>
+</li>
+</ul>
+<p>Опишемо набір даних, до використовуватиметься надалі для прикладів.</p>
+<p><code class="docutils literal notranslate"><span class="pre">river_eco</span></code> - це data.frame, що містить такі три стовпці:</p>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> <code class="docutils literal notranslate"><span class="pre">index</span></code> - цілі числа, що описують порядок спостережень нітратів;</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> <code class="docutils literal notranslate"><span class="pre">nitrate</span></code> - місячні концентрації розчинених нітратів у річці;</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" checked="checked" disabled="disabled" type="checkbox"> <code class="docutils literal notranslate"><span class="pre">month</span></code> - змінна, що містить місяць для кожного спостереження нітратів</p></li>
+</ul>
+<p>Нам потрібно дослідити стовпець <code class="docutils literal notranslate"><span class="pre">nitrate</span></code>, щоб оцінити наявність точкових аномалій у даних.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">river_data</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;../../data/river_eco.csv&quot;</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">river_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 6 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>index</th><th scope=col>nitrate</th><th scope=col>months</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>1</th><td>1</td><td>1.581</td><td>January </td></tr>
+	<tr><th scope=row>2</th><td>2</td><td>1.323</td><td>February</td></tr>
+	<tr><th scope=row>3</th><td>3</td><td>1.140</td><td>March   </td></tr>
+	<tr><th scope=row>4</th><td>4</td><td>1.245</td><td>April   </td></tr>
+	<tr><th scope=row>5</th><td>5</td><td>1.072</td><td>May     </td></tr>
+	<tr><th scope=row>6</th><td>6</td><td>1.483</td><td>June    </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Переглянемо описову статистику показника нітрати:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">river_data</span><span class="o">$</span><span class="n">nitrate</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.5920  0.9485  1.0680  1.0649  1.1700  1.8970 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Як видно, медіана та середнє відрізняються не дуже.</p>
+<p>Далі перевіримо наявність викидів у даних за допомогою <code class="docutils literal notranslate"><span class="pre">boxplot</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">boxplot</span><span class="p">(</span><span class="n">river_data</span><span class="o">$</span><span class="n">nitrate</span><span class="p">)</span>
+<span class="c1"># Додамо лінії 1 та 3 квантилів</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="nf">quantile</span><span class="p">(</span><span class="n">river_data</span><span class="o">$</span><span class="n">nitrate</span><span class="p">,</span><span class="m">0.25</span><span class="p">),</span><span class="n">col</span><span class="o">=</span><span class="s">&quot;red&quot;</span><span class="p">,</span><span class="n">lty</span><span class="o">=</span><span class="m">2</span><span class="p">)</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="nf">quantile</span><span class="p">(</span><span class="n">river_data</span><span class="o">$</span><span class="n">nitrate</span><span class="p">,</span><span class="m">0.75</span><span class="p">),</span><span class="n">col</span><span class="o">=</span><span class="s">&quot;red&quot;</span><span class="p">,</span><span class="n">lty</span><span class="o">=</span><span class="m">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/data-cleaning_159_0.png" src="../../_images/data-cleaning_159_0.png" />
+</div>
+</div>
+<p>Також виведемо номери рядків спостереженнь, що є викидами:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">boxplot.stats</span><span class="p">(</span><span class="n">river_data</span><span class="o">$</span><span class="n">nitrate</span><span class="p">)</span><span class="o">$</span><span class="n">out</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>1.581</li><li>1.643</li><li>1.533</li><li>1.517</li><li>1.897</li><li>0.592</li></ol>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">hist</span><span class="p">(</span><span class="n">river_data</span><span class="o">$</span><span class="n">nitrate</span><span class="p">,</span> <span class="n">xlab</span> <span class="o">=</span> <span class="s">&quot;Nitrate concentration&quot;</span><span class="p">,</span> <span class="n">breaks</span> <span class="o">=</span> <span class="m">40</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/data-cleaning_162_0.png" src="../../_images/data-cleaning_162_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">plot</span><span class="p">(</span><span class="n">nitrate</span> <span class="o">~</span> <span class="n">index</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">river_data</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;o&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/data-cleaning_163_0.png" src="../../_images/data-cleaning_163_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Середньомісячний вміст нітратів у річці</span>
+<span class="n">river_grouped</span> <span class="o">&lt;-</span> <span class="n">river_data</span> <span class="o">|&gt;</span> <span class="nf">group_by</span><span class="p">(</span><span class="n">months</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="nf">summarise</span><span class="p">(</span><span class="n">mean</span> <span class="o">=</span> <span class="nf">mean</span><span class="p">(</span><span class="n">nitrate</span><span class="p">))</span>
+<span class="n">river_grouped</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A tibble: 12 × 2</caption>
+<thead>
+	<tr><th scope=col>months</th><th scope=col>mean</th></tr>
+	<tr><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>April    </td><td>1.0166250</td></tr>
+	<tr><td>August   </td><td>0.9380833</td></tr>
+	<tr><td>December </td><td>1.2264167</td></tr>
+	<tr><td>February </td><td>1.1838400</td></tr>
+	<tr><td>January  </td><td>1.2163600</td></tr>
+	<tr><td>July     </td><td>0.9810417</td></tr>
+	<tr><td>June     </td><td>0.9792083</td></tr>
+	<tr><td>March    </td><td>1.1050400</td></tr>
+	<tr><td>May      </td><td>0.9978333</td></tr>
+	<tr><td>November </td><td>1.0962500</td></tr>
+	<tr><td>October  </td><td>1.0360000</td></tr>
+	<tr><td>September</td><td>0.9885833</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">plot</span><span class="p">(</span><span class="n">river_grouped</span><span class="o">$</span><span class="n">mean</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;o&quot;</span><span class="p">,</span> <span class="n">xlab</span> <span class="o">=</span> <span class="s">&quot;Month&quot;</span><span class="p">,</span> <span class="n">ylab</span> <span class="o">=</span> <span class="s">&quot;Monthly mean&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/data-cleaning_165_0.png" src="../../_images/data-cleaning_165_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">boxplot</span><span class="p">(</span><span class="n">nitrate</span> <span class="o">~</span> <span class="n">months</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">river_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/data-cleaning_166_0.png" src="../../_images/data-cleaning_166_0.png" />
+</div>
+</div>
+<p>Між Q1 та Q2 зосереджено 50% усіх спостережень. Персентиль відображає кількість спостережень, що зосереджені з ним включно.
+Нижче розміщено більше інформації для ознайомлення з інформацією про квантилі.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Quantile">Quantile. Wikipedia</a></p>
+<p><img alt="" src="../../_images/quantiles.png" /></p>
+<p>Джерело: <a class="reference external" href="https://en.wikipedia.org/wiki/Interquartile_range">https://en.wikipedia.org/wiki/Interquartile_range</a></p>
+<p><img alt="" src="../../_images/quantiles2.png" /></p>
+<p>Джерело: <a class="reference external" href="https://makemeanalyst.com/explore-your-data-range-interquartile-range-and-box-plot/">https://makemeanalyst.com/explore-your-data-range-interquartile-range-and-box-plot/</a></p>
+<p>Визначивши викиди у даних з ними можна здійснити кілька операцій:</p>
+<ol class="simple">
+<li><p>Заміна на деякі значення (impute)</p></li>
+<li><p>Заміна на границі квантилей</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">lower_bound</span> <span class="o">&lt;-</span> <span class="nf">quantile</span><span class="p">(</span><span class="n">river_data</span><span class="o">$</span><span class="n">nitrate</span><span class="p">,</span> <span class="m">0.025</span><span class="p">)</span>
+<span class="n">lower_bound</span>
+
+<span class="n">upper_bound</span> <span class="o">&lt;-</span> <span class="nf">quantile</span><span class="p">(</span><span class="n">river_data</span><span class="o">$</span><span class="n">nitrate</span><span class="p">,</span> <span class="m">0.975</span><span class="p">)</span>
+<span class="n">upper_bound</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><strong>2.5%:</strong> 0.75475</div><div class="output text_html"><strong>97.5%:</strong> 1.4095</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">outlier_index</span> <span class="o">&lt;-</span> <span class="nf">which</span><span class="p">(</span><span class="n">river_data</span><span class="o">$</span><span class="n">nitrate</span> <span class="o">&lt;</span> <span class="n">lower_bound</span> <span class="o">|</span> <span class="n">river_data</span><span class="o">$</span><span class="n">nitrate</span> <span class="o">&gt;</span> <span class="n">upper_bound</span><span class="p">)</span>
+<span class="n">outlier_index</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>1</li><li>6</li><li>36</li><li>53</li><li>104</li><li>119</li><li>121</li><li>156</li><li>159</li><li>167</li><li>199</li><li>200</li><li>269</li><li>270</li><li>281</li><li>282</li></ol>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">river_data</span><span class="p">[</span><span class="n">outlier_index</span><span class="p">,</span> <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 16 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>index</th><th scope=col>nitrate</th><th scope=col>months</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>1</th><td>  1</td><td>1.581</td><td>January </td></tr>
+	<tr><th scope=row>6</th><td>  6</td><td>1.483</td><td>June    </td></tr>
+	<tr><th scope=row>36</th><td> 36</td><td>1.643</td><td>December</td></tr>
+	<tr><th scope=row>53</th><td> 53</td><td>1.533</td><td>May     </td></tr>
+	<tr><th scope=row>104</th><td>104</td><td>0.671</td><td>August  </td></tr>
+	<tr><th scope=row>119</th><td>119</td><td>1.517</td><td>November</td></tr>
+	<tr><th scope=row>121</th><td>121</td><td>1.414</td><td>January </td></tr>
+	<tr><th scope=row>156</th><td>156</td><td>1.897</td><td>December</td></tr>
+	<tr><th scope=row>159</th><td>159</td><td>1.414</td><td>March   </td></tr>
+	<tr><th scope=row>167</th><td>167</td><td>0.671</td><td>November</td></tr>
+	<tr><th scope=row>199</th><td>199</td><td>0.748</td><td>July    </td></tr>
+	<tr><th scope=row>200</th><td>200</td><td>0.592</td><td>August  </td></tr>
+	<tr><th scope=row>269</th><td>269</td><td>0.700</td><td>May     </td></tr>
+	<tr><th scope=row>270</th><td>270</td><td>0.673</td><td>June    </td></tr>
+	<tr><th scope=row>281</th><td>281</td><td>0.730</td><td>May     </td></tr>
+	<tr><th scope=row>282</th><td>282</td><td>0.693</td><td>June    </td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Таким чином, усі значення вище та нище деякого показника можемо замінити на потрібні нам значення, наприклад, середні за поточний місяць.</p>
+<p>Здійснимо заміну значень у наборі даних на основі квантилей:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">river_data</span><span class="o">$</span><span class="n">nitrate_upd</span> <span class="o">&lt;-</span> <span class="n">river_data</span><span class="o">$</span><span class="n">nitrate</span>
+<span class="n">qnt</span> <span class="o">&lt;-</span> <span class="nf">quantile</span><span class="p">(</span><span class="n">river_data</span><span class="o">$</span><span class="n">nitrate_upd</span><span class="p">,</span> <span class="n">probs</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="n">.</span><span class="m">05</span><span class="p">,</span> <span class="n">.</span><span class="m">95</span><span class="p">),</span> <span class="n">na.rm</span> <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
+<span class="n">H</span> <span class="o">&lt;-</span> <span class="m">1.5</span> <span class="o">*</span> <span class="nf">IQR</span><span class="p">(</span><span class="n">qnt</span><span class="p">[</span><span class="m">1</span><span class="p">],</span> <span class="n">na.rm</span> <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
+<span class="n">river_data</span><span class="o">$</span><span class="n">nitrate_upd</span><span class="p">[</span><span class="n">river_data</span><span class="o">$</span><span class="n">nitrate_upd</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">qnt</span><span class="p">[</span><span class="m">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">H</span><span class="p">)]</span> <span class="o">&lt;-</span> <span class="n">qnt</span><span class="p">[</span><span class="m">1</span><span class="p">]</span>
+<span class="n">river_data</span><span class="o">$</span><span class="n">nitrate_upd</span><span class="p">[</span><span class="n">river_data</span><span class="o">$</span><span class="n">nitrate_upd</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">qnt</span><span class="p">[</span><span class="m">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">H</span><span class="p">)]</span> <span class="o">&lt;-</span> <span class="n">qnt</span><span class="p">[</span><span class="m">2</span><span class="p">]</span>
+
+<span class="n">qnt</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.dl-inline {width: auto; margin:0; padding: 0}
+.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
+.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
+.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
+</style><dl class=dl-inline><dt>5%</dt><dd>0.805</dd><dt>95%</dt><dd>1.3325</dd></dl>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">boxplot</span><span class="p">(</span><span class="n">river_data</span><span class="o">$</span><span class="n">nitrate_upd</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/data-cleaning_177_0.png" src="../../_images/data-cleaning_177_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">boxplot</span><span class="p">(</span><span class="n">nitrate_upd</span> <span class="o">~</span> <span class="n">months</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">river_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/data-cleaning_178_0.png" src="../../_images/data-cleaning_178_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">plot</span><span class="p">(</span><span class="n">nitrate_upd</span> <span class="o">~</span> <span class="n">index</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">river_data</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="s">&quot;o&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/data-cleaning_179_0.png" src="../../_images/data-cleaning_179_0.png" />
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="a-class-anchor-id-id5-a">
+<h2>5. Додаткові прийоми очистки даних <a class="anchor" id="id5"></a><a class="headerlink" href="#a-class-anchor-id-id5-a" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h3>5.1. Видалення дублікатів<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">X</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">),</span> <span class="n">Y</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;A&quot;</span><span class="p">,</span> <span class="s">&quot;B&quot;</span><span class="p">,</span> <span class="s">&quot;C&quot;</span><span class="p">,</span> <span class="s">&quot;A&quot;</span><span class="p">,</span> <span class="s">&quot;B&quot;</span><span class="p">,</span> <span class="s">&quot;C&quot;</span><span class="p">,</span> <span class="s">&quot;A&quot;</span><span class="p">))</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 7 × 2</caption>
+<thead>
+	<tr><th scope=col>X</th><th scope=col>Y</th></tr>
+	<tr><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>A</td></tr>
+	<tr><td>1</td><td>B</td></tr>
+	<tr><td>2</td><td>C</td></tr>
+	<tr><td>1</td><td>A</td></tr>
+	<tr><td>3</td><td>B</td></tr>
+	<tr><td>2</td><td>C</td></tr>
+	<tr><td>1</td><td>A</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">|&gt;</span> <span class="nf">distinct</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="dataframe">
+<caption>A data.frame: 4 × 2</caption>
+<thead>
+	<tr><th scope=col>X</th><th scope=col>Y</th></tr>
+	<tr><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><td>1</td><td>A</td></tr>
+	<tr><td>1</td><td>B</td></tr>
+	<tr><td>2</td><td>C</td></tr>
+	<tr><td>3</td><td>B</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="tex2jax_ignore mathjax_ignore section" id="id11">
+<h1>Завдання для практики<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h1>
+<p>!!!</p>
+</div>
+<hr class="docutils" />
+<div class="tex2jax_ignore mathjax_ignore section" id="id12">
+<h1>Набори даних<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h1>
+<ol class="simple">
+<li><p><a class="reference external" href="https://github.com/kleban/r-book-source/tree/main/datasets/untitled.csv">https://github.com/kleban/r-book-source/tree/main/datasets/untitled.csv</a></p></li>
+<li><p><a class="reference external" href="https://github.com/kleban/r-book-source/tree/main/datasets/badtitled.csv">https://github.com/kleban/r-book-source/tree/main/datasets/badtitled.csv</a></p></li>
+<li><p><a class="reference external" href="https://github.com/kleban/r-book-source/tree/main/datasets/cleaned_titled.csv">https://github.com/kleban/r-book-source/tree/main/datasets/cleaned_titled.csv</a></p></li>
+<li><p><a class="reference external" href="https://github.com/kleban/r-book-source/tree/main/datasets/cleaned_titled2.csv">https://github.com/kleban/r-book-source/tree/main/datasets/cleaned_titled2.csv</a></p></li>
+<li><p><a class="reference external" href="https://github.com/kleban/r-book-source/tree/main/datasets/river_eco.csv">https://github.com/kleban/r-book-source/tree/main/datasets/river_eco.csv</a></p></li>
+</ol>
+<hr class="docutils" />
+<div class="section" id="id13">
+<h2>Використані та додаткові джерела<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p><a class="reference external" href="https://www.insidesherpa.com/virtual-internships/m7W4GMqeT3bh9Nb2c">KPMG Virtual Internship</a></p></li>
+<li><p><a class="reference external" href="https://cran.r-project.org/doc/contrib/de_Jonge+van_der_Loo-Introduction_to_data_cleaning_with_R.pdf">An introduction to data cleaning with R / Edwin de Jonge, Mark van der Loo, 2013</a></p></li>
+<li><p><span class="xref myst">Anomaly Detection in RAnomaly Detection in R</span></p></li>
+<li><p><a class="reference external" href="https://medium.com/analytics-vidhya/k-nearest-neighbor-the-maths-behind-it-how-it-works-and-an-example-f1de1208546c">K-nearest Neighbor: The maths behind it, how it works and an example</a></p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Quantile">Quantile. Wikipedia</a></p></li>
+</ol>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "r"
+        },
+        kernelOptions: {
+            kernelName: "ir",
+            path: "./docs\data-analysis-ua"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ir'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../index.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Scientific Python QuickStart</p>
+        </div>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Yurii Kleban<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
